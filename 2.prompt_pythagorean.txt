@@ -1,0 +1,24 @@
+Create exercises to teach a topic gradually. Give lots of exercises which are gradually increase in dificulty. Start extremely simple and grow to challenging level
+Prepare the html with prompt maths fractions and equations format.
+
+Topic: Pythagorean theorem
+Output File: pythagorean.html
+
+Details:
+
+* Show a Square with another Square inside it, The inner Square's corner are on the four  sides of outer Square.
+This is creating four identical right angled triangles in corners. Given the sides of the triangle,  find 
+1. area of a triangle
+2. Total area of four triangles
+3. Length of the sides of outer Square 
+4. Area of outer Square
+5. Area of inner Square
+6. Side of inner Square
+
+* Repeat previous exercise at least 5 times with different lengths of sides of triangles, to solidify the process.
+
+* Now, given a right angled triangle and ask the learner to create a square inside square shape as in previous exercises. Now, let them calculate the hypoteneus of the triangle. Create at least 5-6 exercise to cement the idea.
+
+* Now let them create a general formula.
+
+* Let them practice the formula as well as verity the results by comparing the results with the above process.

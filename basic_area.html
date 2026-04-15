@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Area of Rectangles, Squares &amp; Triangles</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Georgia', serif; background: #f5f4ef; color: #222; line-height: 1.7; padding: 2rem 1rem 4rem; }
+    .page { max-width: 860px; margin: 0 auto; }
+    h1 { font-size: 2rem; text-align: center; margin-bottom: 0.3rem; color: #1a1a2e; }
+    .subtitle { text-align: center; color: #555; margin-bottom: 2.5rem; font-style: italic; }
+    .section { margin-bottom: 3rem; }
+    .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+    .section-badge { display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; font-size: 1.1rem; font-weight: bold; flex-shrink: 0; }
+    .badge-a { background: #d0e8ff; color: #0a4a8a; }
+    .badge-b { background: #d5f5e3; color: #1a6b3a; }
+    .badge-c { background: #fde8d0; color: #8a3a0a; }
+    .badge-d { background: #f0e6ff; color: #5a0a8a; }
+    .badge-e { background: #d0f5f5; color: #0a6b6b; }
+    .badge-f { background: #fff3cd; color: #7a5900; }
+    .badge-g { background: #fde8f0; color: #8a0a3a; }
+    .badge-h { background: #fde8e8; color: #8a0a0a; }
+    .section-title { font-size: 1.25rem; font-weight: bold; color: #1a1a2e; }
+    .section-intro { background: #fff; border-left: 4px solid #aac; padding: 0.9rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; font-size: 0.97rem; color: #444; }
+    .exercise-list { display: flex; flex-direction: column; gap: 1rem; }
+    .card { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.09); overflow: hidden; }
+    .card-header { display: flex; align-items: center; padding: 0.75rem 1.2rem; gap: 0.8rem; cursor: pointer; user-select: none; }
+    .card-header:hover { background: #fafaf6; }
+    .ex-num { font-weight: bold; font-size: 0.85rem; min-width: 2rem; color: #888; }
+    .difficulty { margin-left: auto; font-size: 0.78rem; padding: 0.15rem 0.55rem; border-radius: 999px; font-weight: 600; letter-spacing: 0.03em; flex-shrink: 0; }
+    .d1 { background:#e8f4fd; color:#2980b9; }
+    .d2 { background:#eafaf1; color:#27ae60; }
+    .d3 { background:#fef9e7; color:#d4a017; }
+    .d4 { background:#fdf2f8; color:#9b59b6; }
+    .d5 { background:#fdedec; color:#c0392b; }
+    .toggle-icon { font-size: 0.85rem; color: #aaa; transition: transform 0.2s; }
+    .card.open .toggle-icon { transform: rotate(180deg); }
+    .card-body { display: none; padding: 0 1.2rem 1.2rem 1.2rem; border-top: 1px solid #f0f0ea; }
+    .card.open .card-body { display: block; }
+    .problem { font-size: 1.05rem; margin: 0.8rem 0 0.5rem; }
+    .hint-box { background: #fffbec; border: 1px dashed #e0c060; border-radius: 6px; padding: 0.6rem 1rem; margin-top: 0.7rem; font-size: 0.93rem; color: #6b5000; }
+    .hint-box strong { color: #a07000; }
+    .solution-box { background: #f0fff4; border: 1px solid #b2dfdb; border-radius: 6px; padding: 0.7rem 1rem; margin-top: 0.7rem; font-size: 0.95rem; }
+    .solution-box summary { cursor: pointer; font-weight: bold; color: #1a6b3a; list-style: none; }
+    .solution-box summary::before { content: "▶ "; font-size: 0.75em; }
+    .solution-box[open] summary::before { content: "▼ "; }
+    .solution-content { margin-top: 0.5rem; }
+    .step { margin: 0.4rem 0; padding-left: 0.5rem; border-left: 3px solid #b2dfdb; }
+    .answer { font-weight: bold; color: #155a30; margin-top: 0.5rem; }
+    .insight { background: #fff8e1; border-left: 4px solid #f9a825; border-radius: 0 8px 8px 0; padding: 0.9rem 1.2rem; margin: 1.5rem 0; font-size: 0.97rem; }
+    .insight-title { font-weight: bold; color: #7a5900; margin-bottom: 0.3rem; }
+    .diagram { margin: 0.8rem 0; display: flex; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
+    .diagram svg { flex-shrink: 0; }
+    .diagram-note { font-size: 0.92rem; color: #444; max-width: 280px; align-self: center; }
+    svg text { font-family: Georgia, serif; }
+    @media (max-width: 500px) { h1 { font-size: 1.4rem; } .section-title { font-size: 1.05rem; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<h1>Area of Shapes</h1>
+<p class="subtitle">From counting tiles to triangles — building intuition step by step</p>
+
+<!-- ══════════════════════════════════════════
+     SECTION A — Tile counting intuition
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-a">A</span>
+    <span class="section-title">Counting tiles — the birth of area</span>
+  </div>
+  <div class="section-intro">
+    Imagine covering a floor with square tiles of the same size.
+    The <strong>area</strong> of a shape is simply how many tiles fit inside it.
+    Let's start by counting — and then discover a shortcut.
+  </div>
+  <div class="exercise-list">
+
+    <!-- A1 -->
+    <div class="card" id="a1">
+      <div class="card-header" onclick="toggle('a1')">
+        <span class="ex-num">A1</span>
+        <span>Count the tiles in a 3 × 4 rectangle</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Each small square below is one tile. How many tiles fill the rectangle?</p>
+        <div id="grid-a1"></div>
+        <div class="hint-box"><strong>Hint:</strong> Count every tile one by one. Then look at how many rows and columns there are.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Counting one by one: 1, 2, 3 … 12 tiles.</div>
+            <div class="step">There are <strong>4 rows</strong> and <strong>3 columns</strong>.</div>
+            <div class="step">$4 \times 3 = 12$</div>
+            <p class="answer">12 tiles &nbsp;→&nbsp; Area = 12 square units</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A2 -->
+    <div class="card" id="a2">
+      <div class="card-header" onclick="toggle('a2')">
+        <span class="ex-num">A2</span>
+        <span>Count the tiles in a 5 × 4 rectangle</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Count every tile. Then verify your count by multiplying rows × columns.</p>
+        <div id="grid-a2"></div>
+        <div class="hint-box"><strong>Hint:</strong> Count row by row — each row has the same number of tiles.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">5 columns, 4 rows.</div>
+            <div class="step">Each row has 5 tiles. 4 rows × 5 = 20.</div>
+            <p class="answer">20 tiles &nbsp;→&nbsp; Area = 20 square units</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A3 -->
+    <div class="card" id="a3">
+      <div class="card-header" onclick="toggle('a3')">
+        <span class="ex-num">A3</span>
+        <span>A big floor: 12 × 10 tiles — count or multiply?</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A room floor is covered with <strong>12 columns</strong> and <strong>10 rows</strong> of square tiles.
+          How many tiles in total? Try counting — then try multiplying. Which is faster?
+        </p>
+        <div id="grid-a3"></div>
+        <div class="hint-box">
+          <strong>Hint:</strong> Counting all 120 tiles is tedious! Notice each row has exactly 12 tiles,
+          and there are 10 rows. So you could just compute $12 \times 10$.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">12 columns × 10 rows</div>
+            <div class="step">$12 \times 10 = 120$</div>
+            <p class="answer">120 tiles &nbsp;→&nbsp; Area = 120 square units</p>
+            <p style="margin-top:0.5rem;font-size:0.9rem;color:#555">
+              <strong>Key insight:</strong> Counting is slow. Multiplying is instant.
+              This is why <em>Area of a rectangle = length × width</em>.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A4 -->
+    <div class="card" id="a4">
+      <div class="card-header" onclick="toggle('a4')">
+        <span class="ex-num">A4</span>
+        <span>A square floor: 6 × 6 tiles</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">How many tiles? What is special about a square compared to a rectangle?</p>
+        <div id="grid-a4"></div>
+        <div class="hint-box"><strong>Hint:</strong> A square has equal length and width. How does that change the multiplication?</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">6 columns × 6 rows</div>
+            <div class="step">$6 \times 6 = 36$</div>
+            <p class="answer">36 tiles &nbsp;→&nbsp; Area = 36 square units</p>
+            <p style="margin-top:0.5rem;font-size:0.9rem;color:#555">
+              For a square with side $s$: Area $= s \times s = s^2$. That's why we say "6 <em>squared</em>"!
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A5 -->
+    <div class="card" id="a5">
+      <div class="card-header" onclick="toggle('a5')">
+        <span class="ex-num">A5</span>
+        <span>Odd one out: 7 × 3 rectangle</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A rectangular garden is 7 tiles wide and 3 tiles tall.
+          Without counting tile by tile, can you find the total area?
+        </p>
+        <div id="grid-a5"></div>
+        <div class="hint-box"><strong>Hint:</strong> Use multiplication — you have everything you need.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$7 \times 3 = 21$</div>
+            <p class="answer">Area = 21 square units</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section A -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION B — Rectangle & square formula
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-b">B</span>
+    <span class="section-title">Area of rectangles and squares</span>
+  </div>
+  <div class="section-intro">
+    <strong>Formula:</strong> Area of a rectangle $= \text{length} \times \text{width}$
+    &nbsp;(sometimes written $\ell \times w$)<br>
+    <strong>Formula:</strong> Area of a square $= \text{side}^2 = s^2$
+  </div>
+
+  <div class="insight">
+    <div class="insight-title">What does "square unit" mean?</div>
+    If tiles are 1 cm × 1 cm, the area is measured in <em>square centimetres</em> (cm²).
+    If tiles are 1 m × 1 m, the area is in m². The unit always gets squared.
+  </div>
+
+  <div class="exercise-list">
+
+    <!-- B1 -->
+    <div class="card" id="b1">
+      <div class="card-header" onclick="toggle('b1')">
+        <span class="ex-num">B1</span>
+        <span>Rectangle: length = 9 cm, width = 4 cm</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a rectangle with length 9 cm and width 4 cm.</p>
+        <div class="diagram">
+          <svg width="200" height="100" viewBox="0 0 200 100">
+            <rect x="10" y="15" width="180" height="72" fill="#d0e8ff" stroke="#4a90d9" stroke-width="2"/>
+            <text x="100" y="57" text-anchor="middle" font-size="14" fill="#1a4a8a">9 cm</text>
+            <text x="190" y="55" text-anchor="start" font-size="14" fill="#1a4a8a" transform="rotate(90,193,55)">4 cm</text>
+            <text x="100" y="95" text-anchor="middle" font-size="11" fill="#888">Rectangle</text>
+          </svg>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \ell \times w = 9 \times 4$</div>
+            <p class="answer">Area = 36 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B2 -->
+    <div class="card" id="b2">
+      <div class="card-header" onclick="toggle('b2')">
+        <span class="ex-num">B2</span>
+        <span>Square: side = 7 m</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a square with side length 7 m.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= s^2 = 7^2 = 7 \times 7$</div>
+            <p class="answer">Area = 49 m²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B3 -->
+    <div class="card" id="b3">
+      <div class="card-header" onclick="toggle('b3')">
+        <span class="ex-num">B3</span>
+        <span>Rectangle: length = 13 cm, width = 5 cm</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a rectangle 13 cm long and 5 cm wide.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= 13 \times 5 = 65$</div>
+            <p class="answer">Area = 65 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B4 -->
+    <div class="card" id="b4">
+      <div class="card-header" onclick="toggle('b4')">
+        <span class="ex-num">B4</span>
+        <span>Rectangle: length = $\frac{3}{2}$ m, width = $\frac{4}{3}$ m</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a rectangle with length $\dfrac{3}{2}$ m and width $\dfrac{4}{3}$ m.</p>
+        <div class="hint-box"><strong>Hint:</strong> Multiply the fractions: $\dfrac{3}{2} \times \dfrac{4}{3}$. Simplify before multiplying.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{3}{2} \times \dfrac{4}{3} = \dfrac{3 \times 4}{2 \times 3} = \dfrac{12}{6} = 2$</div>
+            <p class="answer">Area = 2 m²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B5 -->
+    <div class="card" id="b5">
+      <div class="card-header" onclick="toggle('b5')">
+        <span class="ex-num">B5</span>
+        <span>Find the missing side: area = 48 cm², length = 8 cm</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A rectangle has area 48 cm² and length 8 cm. What is the width?</p>
+        <div class="hint-box"><strong>Hint:</strong> Area $= \ell \times w$, so $w = \text{Area} \div \ell$.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$48 = 8 \times w$</div>
+            <div class="step">$w = 48 \div 8 = 6$</div>
+            <p class="answer">Width = 6 cm</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B6 -->
+    <div class="card" id="b6">
+      <div class="card-header" onclick="toggle('b6')">
+        <span class="ex-num">B6</span>
+        <span>Find the side: square area = 144 m²</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A square has area 144 m². What is the length of one side?</p>
+        <div class="hint-box"><strong>Hint:</strong> Area $= s^2$, so $s = \sqrt{\text{Area}}$.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$s^2 = 144$</div>
+            <div class="step">$s = \sqrt{144} = 12$</div>
+            <p class="answer">Side = 12 m</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section B -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION C — Right triangle = half rectangle
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-c">C</span>
+    <span class="section-title">A right triangle is half a rectangle</span>
+  </div>
+  <div class="section-intro">
+    Here is the key idea: take any rectangle and draw a diagonal line from one corner to the opposite corner.
+    You get two identical right triangles. So the area of each triangle is exactly <strong>half</strong> the area of the rectangle.
+  </div>
+
+  <div class="diagram" style="justify-content:center; margin-bottom:1rem;">
+    <svg width="320" height="180" viewBox="0 0 320 180">
+      <!-- Dashed rectangle outline -->
+      <rect x="20" y="20" width="280" height="140" fill="#f0f7ff" stroke="#4a90d9" stroke-width="1.5" stroke-dasharray="6 3"/>
+      <!-- Right triangle (lower-left) filled -->
+      <polygon points="20,160 300,160 20,20" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+      <!-- Right angle marker -->
+      <rect x="20" y="140" width="16" height="16" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+      <!-- Diagonal label -->
+      <text x="175" y="75" text-anchor="middle" font-size="12" fill="#555" transform="rotate(-26.6,175,75)">diagonal</text>
+      <!-- Dimension labels -->
+      <text x="160" y="178" text-anchor="middle" font-size="13" fill="#1a4a8a">base (b)</text>
+      <text x="8" y="95" text-anchor="middle" font-size="13" fill="#1a4a8a" transform="rotate(-90,8,95)">height (h)</text>
+      <!-- "Half" label in each triangle -->
+      <text x="90" y="130" text-anchor="middle" font-size="12" fill="#1a6b3a" font-style="italic">½ of rectangle</text>
+      <text x="230" y="70" text-anchor="middle" font-size="12" fill="#999" font-style="italic">other half</text>
+    </svg>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title">Area of a right triangle</div>
+    $$\text{Area} = \frac{1}{2} \times \text{base} \times \text{height}$$
+    where <em>base</em> and <em>height</em> are the two sides that meet at the right angle.
+  </div>
+
+  <div class="exercise-list">
+
+    <!-- C1 -->
+    <div class="card" id="c1">
+      <div class="card-header" onclick="toggle('c1')">
+        <span class="ex-num">C1</span>
+        <span>Verify: right triangle with base = 6, height = 4</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A rectangle is 6 cm wide and 4 cm tall.
+          If you draw a diagonal, what is the area of the right triangle you get?
+        </p>
+        <div class="diagram">
+          <svg width="200" height="150" viewBox="0 0 200 150">
+            <rect x="15" y="15" width="160" height="106" fill="#f0f7ff" stroke="#4a90d9" stroke-width="1" stroke-dasharray="5 3"/>
+            <polygon points="15,121 175,121 15,15" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+            <rect x="15" y="105" width="14" height="14" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+            <text x="95" y="140" text-anchor="middle" font-size="12" fill="#1a4a8a">6 cm</text>
+            <text x="5" y="72" text-anchor="middle" font-size="12" fill="#1a4a8a" transform="rotate(-90,5,72)">4 cm</text>
+          </svg>
+          <div class="diagram-note">
+            The rectangle has area $6 \times 4 = 24$ cm².<br>
+            The triangle is exactly half of that.
+          </div>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Rectangle area $= 6 \times 4 = 24$ cm²</div>
+            <div class="step">Triangle area $= \dfrac{1}{2} \times 24 = 12$ cm²</div>
+            <div class="step">Or directly: $\dfrac{1}{2} \times 6 \times 4 = 12$ cm²</div>
+            <p class="answer">Area = 12 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="card" id="c2">
+      <div class="card-header" onclick="toggle('c2')">
+        <span class="ex-num">C2</span>
+        <span>Right triangle: base = 10, height = 6</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a right triangle with base 10 cm and height 6 cm.</p>
+        <div class="hint-box"><strong>Hint:</strong> What rectangle would this triangle be half of?</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Rectangle area $= 10 \times 6 = 60$ cm²</div>
+            <div class="step">Triangle area $= \dfrac{60}{2} = 30$ cm²</div>
+            <p class="answer">Area = 30 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="card" id="c3">
+      <div class="card-header" onclick="toggle('c3')">
+        <span class="ex-num">C3</span>
+        <span>Right isosceles triangle: base = height = 8</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A right triangle has base = 8 cm and height = 8 cm (both legs equal). Find the area.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 8 \times 8 = \dfrac{64}{2} = 32$ cm²</div>
+            <p class="answer">Area = 32 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section C -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION D — Right triangle practice
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-d">D</span>
+    <span class="section-title">Practice: right triangle area</span>
+  </div>
+  <div class="section-intro">
+    Use the formula $\text{Area} = \dfrac{1}{2} \times b \times h$ for all of these.
+    Some questions ask you to find a missing side given the area.
+  </div>
+  <div class="exercise-list">
+
+    <!-- D1 -->
+    <div class="card" id="d1">
+      <div class="card-header" onclick="toggle('d1')">
+        <span class="ex-num">D1</span>
+        <span>base = 5, height = 8</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a right triangle with base 5 cm and height 8 cm.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 5 \times 8 = \dfrac{40}{2} = 20$</div>
+            <p class="answer">Area = 20 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D2 -->
+    <div class="card" id="d2">
+      <div class="card-header" onclick="toggle('d2')">
+        <span class="ex-num">D2</span>
+        <span>base = 12, height = 9</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a right triangle with base 12 cm and height 9 cm.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 12 \times 9 = \dfrac{108}{2} = 54$</div>
+            <p class="answer">Area = 54 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D3 -->
+    <div class="card" id="d3">
+      <div class="card-header" onclick="toggle('d3')">
+        <span class="ex-num">D3</span>
+        <span>base = 7, height = 4</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a right triangle with base 7 cm and height 4 cm.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 7 \times 4 = \dfrac{28}{2} = 14$</div>
+            <p class="answer">Area = 14 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D4 -->
+    <div class="card" id="d4">
+      <div class="card-header" onclick="toggle('d4')">
+        <span class="ex-num">D4</span>
+        <span>base = 11, height = 6</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a right triangle with base 11 m and height 6 m.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 11 \times 6 = \dfrac{66}{2} = 33$</div>
+            <p class="answer">Area = 33 m²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D5 -->
+    <div class="card" id="d5">
+      <div class="card-header" onclick="toggle('d5')">
+        <span class="ex-num">D5</span>
+        <span>Fraction: base = $\frac{5}{2}$, height = 4</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Find the area of a right triangle with base $\dfrac{5}{2}$ cm and height 4 cm.</p>
+        <div class="hint-box"><strong>Hint:</strong> $\dfrac{1}{2} \times \dfrac{5}{2} \times 4$ — multiply the fractions step by step.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times \dfrac{5}{2} \times 4 = \dfrac{1}{2} \times 10 = 5$</div>
+            <p class="answer">Area = 5 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D6 -->
+    <div class="card" id="d6">
+      <div class="card-header" onclick="toggle('d6')">
+        <span class="ex-num">D6</span>
+        <span>Find the missing base: area = 30, height = 12</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A right triangle has area 30 cm² and height 12 cm. Find the base.</p>
+        <div class="hint-box">
+          <strong>Hint:</strong> Start from $30 = \dfrac{1}{2} \times b \times 12$ and solve for $b$.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$30 = \dfrac{1}{2} \times b \times 12 = 6b$</div>
+            <div class="step">$b = 30 \div 6 = 5$</div>
+            <p class="answer">Base = 5 cm</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D7 -->
+    <div class="card" id="d7">
+      <div class="card-header" onclick="toggle('d7')">
+        <span class="ex-num">D7</span>
+        <span>Find the missing height: area = 42, base = 7</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A right triangle has area 42 m² and base 7 m. Find the height.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$42 = \dfrac{1}{2} \times 7 \times h = \dfrac{7h}{2}$</div>
+            <div class="step">$h = \dfrac{42 \times 2}{7} = \dfrac{84}{7} = 12$</div>
+            <p class="answer">Height = 12 m</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D8 -->
+    <div class="card" id="d8">
+      <div class="card-header" onclick="toggle('d8')">
+        <span class="ex-num">D8</span>
+        <span>Two equal right triangles form a rectangle — find the rectangle's dimensions</span>
+        <span class="difficulty d4">Hard</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          Two identical right triangles are placed together to form a rectangle.
+          Each triangle has area 40 cm². The height of each triangle is 8 cm.
+          What are the length and width of the rectangle?
+        </p>
+        <div class="hint-box">
+          <strong>Hint:</strong> First find the base of one triangle, then think about how two triangles form the rectangle.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Triangle area $= 40$ cm², height $= 8$ cm</div>
+            <div class="step">$40 = \dfrac{1}{2} \times b \times 8 = 4b \;\Rightarrow\; b = 10$ cm</div>
+            <div class="step">Rectangle = base × height $= 10 \times 8$</div>
+            <p class="answer">Rectangle is 10 cm × 8 cm (area = 80 cm²)</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section D -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION E — General formula derivation
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-e">E</span>
+    <span class="section-title">Deriving the general triangle area formula</span>
+  </div>
+  <div class="section-intro">
+    So far we used the right-angle idea. Now let's show that
+    $\text{Area} = \tfrac{1}{2} \times \text{base} \times \text{height}$
+    works for <em>any</em> triangle — not just right triangles.
+  </div>
+  <div class="exercise-list">
+
+    <!-- E1 -->
+    <div class="card" id="e1">
+      <div class="card-header" onclick="toggle('e1')">
+        <span class="ex-num">E1</span>
+        <span>Why does ½ × base × height work for any triangle?</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          Take any triangle with base $b$ and drop a perpendicular from the opposite vertex to the base.
+          Call its length $h$ (the height). Why is the area always $\dfrac{1}{2} b h$?
+        </p>
+        <div class="diagram">
+          <svg width="280" height="170" viewBox="0 0 280 170">
+            <!-- Acute triangle -->
+            <polygon points="30,150 250,150 160,20" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+            <!-- Altitude from top vertex to base -->
+            <line x1="160" y1="20" x2="160" y2="150" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <!-- Right angle mark at foot of altitude -->
+            <rect x="160" y="136" width="12" height="12" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+            <!-- Labels -->
+            <text x="140" y="165" text-anchor="middle" font-size="12" fill="#1a4a8a">base (b)</text>
+            <text x="172" y="90" font-size="12" fill="#c0392b">h</text>
+            <text x="50" y="100" font-size="11" fill="#555" font-style="italic">left part</text>
+            <text x="185" y="100" font-size="11" fill="#555" font-style="italic">right part</text>
+          </svg>
+          <div class="diagram-note">
+            The altitude $h$ splits the triangle into <em>two right triangles</em>.
+            Each is half of a small rectangle.
+            The left right-triangle has area $\tfrac{1}{2} b_1 h$ and the right has $\tfrac{1}{2} b_2 h$.
+            Together: $\tfrac{1}{2}(b_1 + b_2)h = \tfrac{1}{2} b h$.
+          </div>
+        </div>
+        <details class="solution-box">
+          <summary>Show formal derivation</summary>
+          <div class="solution-content">
+            <div class="step">Drop altitude $h$ from top vertex to base, splitting base into lengths $b_1$ and $b_2$ with $b_1 + b_2 = b$.</div>
+            <div class="step">Left right-triangle: Area $= \dfrac{1}{2} b_1 h$</div>
+            <div class="step">Right right-triangle: Area $= \dfrac{1}{2} b_2 h$</div>
+            <div class="step">Total: $\dfrac{1}{2} b_1 h + \dfrac{1}{2} b_2 h = \dfrac{1}{2}(b_1 + b_2)h = \dfrac{1}{2} b h$</div>
+            <p class="answer">$$\boxed{\text{Area} = \frac{1}{2} \times b \times h}$$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- E2 -->
+    <div class="card" id="e2">
+      <div class="card-header" onclick="toggle('e2')">
+        <span class="ex-num">E2</span>
+        <span>Does the choice of base matter?</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A triangle has three sides: 10 cm, 8 cm, and 6 cm.
+          You measure the height to the 10 cm side and get $h_1 = 4.8$ cm.
+          Verify the area, then confirm that choosing the 6 cm side as base gives the same area if $h_2 = 8$ cm.
+        </p>
+        <div class="hint-box"><strong>Hint:</strong> Compute $\tfrac{1}{2} \times 10 \times 4.8$ and also $\tfrac{1}{2} \times 6 \times 8$.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Using base 10: Area $= \dfrac{1}{2} \times 10 \times 4.8 = 24$ cm²</div>
+            <div class="step">Using base 6: Area $= \dfrac{1}{2} \times 6 \times 8 = 24$ cm²</div>
+            <p class="answer">Both give 24 cm² ✓ — the formula works regardless of which side you call the base, as long as you use the perpendicular height to <em>that</em> base.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section E -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION F — Other triangles
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-f">F</span>
+    <span class="section-title">Area of acute, obtuse, and equilateral triangles</span>
+  </div>
+  <div class="section-intro">
+    The formula $\tfrac{1}{2} b h$ works for all triangles. The only challenge is finding $h$ — the <em>perpendicular</em> height, not the slant side.
+  </div>
+  <div class="exercise-list">
+
+    <!-- F1 -->
+    <div class="card" id="f1">
+      <div class="card-header" onclick="toggle('f1')">
+        <span class="ex-num">F1</span>
+        <span>Acute triangle: base = 12 cm, height = 8 cm</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          An acute triangle (all angles less than 90°) has a base of 12 cm.
+          The perpendicular height from the opposite vertex to the base is 8 cm. Find the area.
+        </p>
+        <div class="diagram">
+          <svg width="240" height="160" viewBox="0 0 240 160">
+            <polygon points="20,140 220,140 130,20" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+            <line x1="130" y1="20" x2="130" y2="140" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <rect x="130" y="126" width="12" height="12" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+            <text x="120" y="155" text-anchor="middle" font-size="12" fill="#1a4a8a">12 cm</text>
+            <text x="144" y="85" font-size="12" fill="#c0392b">8 cm</text>
+          </svg>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 12 \times 8 = 48$</div>
+            <p class="answer">Area = 48 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- F2 -->
+    <div class="card" id="f2">
+      <div class="card-header" onclick="toggle('f2')">
+        <span class="ex-num">F2</span>
+        <span>Obtuse triangle: base = 10 cm, height = 6 cm</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          An obtuse triangle (one angle greater than 90°) has base 10 cm.
+          The height is measured <em>outside</em> the base line and equals 6 cm. Find the area.
+        </p>
+        <div class="diagram">
+          <svg width="280" height="170" viewBox="0 0 280 170">
+            <!-- Extended dashed base line -->
+            <line x1="10" y1="145" x2="280" y2="145" stroke="#ccc" stroke-width="1" stroke-dasharray="4 3"/>
+            <!-- Obtuse triangle -->
+            <polygon points="30,145 230,145 200,30" fill="#fff3cd" stroke="#e67e22" stroke-width="2"/>
+            <!-- Altitude falls outside triangle -->
+            <line x1="200" y1="30" x2="200" y2="145" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <rect x="200" y="131" width="12" height="12" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+            <!-- Labels -->
+            <text x="130" y="162" text-anchor="middle" font-size="12" fill="#1a4a8a">10 cm</text>
+            <text x="215" y="92" font-size="12" fill="#c0392b">6 cm</text>
+            <text x="230" y="140" font-size="10" fill="#999">(foot outside)</text>
+          </svg>
+        </div>
+        <div class="hint-box">
+          <strong>Hint:</strong> Even though the height falls outside the triangle, the formula $\tfrac{1}{2} b h$ still works. Use base = 10 and height = 6.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 10 \times 6 = 30$</div>
+            <p class="answer">Area = 30 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- F3 -->
+    <div class="card" id="f3">
+      <div class="card-header" onclick="toggle('f3')">
+        <span class="ex-num">F3</span>
+        <span>Equilateral triangle with side = 10 cm</span>
+        <span class="difficulty d4">Hard</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          An equilateral triangle has all three sides equal to 10 cm.
+          First find the height using the Pythagorean theorem, then find the area.
+        </p>
+        <div class="diagram">
+          <svg width="240" height="210" viewBox="0 0 240 210">
+            <polygon points="120,20 220,190 20,190" fill="#fde8d0" stroke="#e67e22" stroke-width="2"/>
+            <line x1="120" y1="20" x2="120" y2="190" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="5 3"/>
+            <rect x="120" y="176" width="12" height="12" fill="none" stroke="#e74c3c" stroke-width="1.5"/>
+            <text x="120" y="207" text-anchor="middle" font-size="12" fill="#1a4a8a">10 cm</text>
+            <text x="132" y="112" font-size="12" fill="#c0392b">h = ?</text>
+            <text x="55" y="120" font-size="11" fill="#888">5 cm</text>
+            <text x="170" y="120" font-size="11" fill="#888">5 cm</text>
+          </svg>
+        </div>
+        <div class="hint-box">
+          <strong>Hint:</strong> The altitude bisects the base into two halves of 5 cm each.
+          In the right triangle formed: $h^2 + 5^2 = 10^2$.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Using Pythagoras: $h^2 = 10^2 - 5^2 = 100 - 25 = 75$</div>
+            <div class="step">$h = \sqrt{75} = 5\sqrt{3}$ cm</div>
+            <div class="step">Area $= \dfrac{1}{2} \times 10 \times 5\sqrt{3} = 25\sqrt{3}$</div>
+            <p class="answer">Area $= 25\sqrt{3} \approx 43.3$ cm²</p>
+            <p style="margin-top:0.5rem;font-size:0.9rem;color:#555">
+              General formula for equilateral triangle with side $s$: Area $= \dfrac{\sqrt{3}}{4} s^2$
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- F4 -->
+    <div class="card" id="f4">
+      <div class="card-header" onclick="toggle('f4')">
+        <span class="ex-num">F4</span>
+        <span>Scalene triangle: base = 15, height = 7</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A scalene triangle (all sides different) has base 15 m and perpendicular height 7 m. Find the area.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Area $= \dfrac{1}{2} \times 15 \times 7 = \dfrac{105}{2} = 52.5$</div>
+            <p class="answer">Area = 52.5 m²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- F5 -->
+    <div class="card" id="f5">
+      <div class="card-header" onclick="toggle('f5')">
+        <span class="ex-num">F5</span>
+        <span>Isosceles triangle: base = 8, equal sides = 5</span>
+        <span class="difficulty d4">Hard</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          An isosceles triangle has a base of 8 cm and two equal sides of 5 cm.
+          Find the height, then the area.
+        </p>
+        <div class="hint-box">
+          <strong>Hint:</strong> The altitude from the apex bisects the base into two segments of 4 cm each.
+          Use Pythagoras: $h^2 + 4^2 = 5^2$.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$h^2 = 5^2 - 4^2 = 25 - 16 = 9$</div>
+            <div class="step">$h = 3$ cm</div>
+            <div class="step">Area $= \dfrac{1}{2} \times 8 \times 3 = 12$</div>
+            <p class="answer">Area = 12 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section F -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION G — Combined shapes
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-g">G</span>
+    <span class="section-title">Combined shapes — rectangles and triangles together</span>
+  </div>
+  <div class="section-intro">
+    Real-world shapes are often made by combining simpler shapes.
+    Split the shape into rectangles and triangles, find each area, then add them up.
+  </div>
+  <div class="exercise-list">
+
+    <!-- G1 -->
+    <div class="card" id="g1">
+      <div class="card-header" onclick="toggle('g1')">
+        <span class="ex-num">G1</span>
+        <span>House shape: rectangle + triangle roof</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A house shape consists of a rectangle (base 10 m, height 6 m)
+          topped by an isosceles triangular roof (base 10 m, height 4 m).
+          Find the total area.
+        </p>
+        <div class="diagram">
+          <svg width="260" height="220" viewBox="0 0 260 220">
+            <!-- Rectangle (house walls) -->
+            <rect x="30" y="110" width="200" height="90" fill="#d0e8ff" stroke="#4a90d9" stroke-width="2"/>
+            <!-- Triangle (roof) -->
+            <polygon points="130,18 230,110 30,110" fill="#fde8d0" stroke="#e67e22" stroke-width="2"/>
+            <!-- Dimension labels -->
+            <text x="130" y="210" text-anchor="middle" font-size="12" fill="#1a4a8a">10 m</text>
+            <text x="18" y="160" text-anchor="middle" font-size="12" fill="#1a4a8a" transform="rotate(-90,18,160)">6 m</text>
+            <!-- Roof height -->
+            <line x1="130" y1="18" x2="130" y2="110" stroke="#e74c3c" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="140" y="70" font-size="11" fill="#c0392b">4 m</text>
+            <!-- Labels inside shapes -->
+            <text x="130" y="158" text-anchor="middle" font-size="11" fill="#1a4a8a" font-style="italic">Rectangle</text>
+            <text x="130" y="85" text-anchor="middle" font-size="11" fill="#8a3a0a" font-style="italic">Triangle</text>
+          </svg>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Rectangle area $= 10 \times 6 = 60$ m²</div>
+            <div class="step">Triangle area $= \dfrac{1}{2} \times 10 \times 4 = 20$ m²</div>
+            <div class="step">Total $= 60 + 20 = 80$ m²</div>
+            <p class="answer">Total area = 80 m²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- G2 -->
+    <div class="card" id="g2">
+      <div class="card-header" onclick="toggle('g2')">
+        <span class="ex-num">G2</span>
+        <span>Right trapezoid: rectangle + right triangle</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A right trapezoid has a rectangular part (8 m × 5 m) with a right triangle
+          attached to the right side (base 6 m, height 5 m). Find the total area.
+        </p>
+        <div class="diagram">
+          <svg width="290" height="160" viewBox="0 0 290 160">
+            <!-- Rectangle -->
+            <rect x="20" y="30" width="160" height="100" fill="#d0e8ff" stroke="#4a90d9" stroke-width="2"/>
+            <!-- Right triangle attached on right -->
+            <polygon points="180,30 260,130 180,130" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+            <rect x="180" y="116" width="12" height="12" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+            <!-- Labels -->
+            <text x="100" y="150" text-anchor="middle" font-size="12" fill="#1a4a8a">8 m</text>
+            <text x="9" y="82" text-anchor="middle" font-size="12" fill="#1a4a8a" transform="rotate(-90,9,82)">5 m</text>
+            <text x="225" y="148" text-anchor="middle" font-size="12" fill="#1a6b3a">6 m</text>
+            <text x="100" y="83" text-anchor="middle" font-size="11" fill="#1a4a8a" font-style="italic">Rect.</text>
+            <text x="218" y="95" text-anchor="middle" font-size="11" fill="#1a6b3a" font-style="italic">Tri.</text>
+          </svg>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Rectangle area $= 8 \times 5 = 40$ m²</div>
+            <div class="step">Triangle area $= \dfrac{1}{2} \times 6 \times 5 = 15$ m²</div>
+            <div class="step">Total $= 40 + 15 = 55$ m²</div>
+            <p class="answer">Total area = 55 m²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- G3 -->
+    <div class="card" id="g3">
+      <div class="card-header" onclick="toggle('g3')">
+        <span class="ex-num">G3</span>
+        <span>L-shape: two rectangles</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          An L-shaped room consists of two rectangles:
+          a large one (10 m × 8 m) and a smaller one (4 m × 3 m) cut from one corner.
+          Find the area of the L-shape.
+        </p>
+        <div class="diagram">
+          <svg width="270" height="200" viewBox="0 0 270 200">
+            <!-- Full large rectangle outline (dashed) -->
+            <rect x="15" y="15" width="200" height="160" fill="#f8f8f8" stroke="#ccc" stroke-width="1" stroke-dasharray="5 3"/>
+            <!-- L-shape drawn as polygon -->
+            <polygon points="15,15 215,15 215,95 135,95 135,175 15,175" fill="#d0e8ff" stroke="#4a90d9" stroke-width="2"/>
+            <!-- Dimension labels -->
+            <text x="115" y="190" text-anchor="middle" font-size="12" fill="#1a4a8a">10 m</text>
+            <text x="4" y="97" text-anchor="middle" font-size="12" fill="#1a4a8a" transform="rotate(-90,4,97)">8 m</text>
+            <text x="177" y="90" text-anchor="middle" font-size="11" fill="#888">4 m</text>
+            <text x="238" y="57" font-size="11" fill="#888">cut: 4×3</text>
+            <!-- Cut corner indication -->
+            <rect x="135" y="15" width="80" height="80" fill="#fde8e8" stroke="#e74c3c" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="175" y="60" text-anchor="middle" font-size="10" fill="#c0392b">4 m × 3 m</text>
+          </svg>
+        </div>
+        <div class="hint-box">
+          <strong>Hint:</strong> Compute the area of the full large rectangle, then subtract the cut corner.
+          (Or split the L into two smaller rectangles and add.)
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Full rectangle area $= 10 \times 8 = 80$ m²</div>
+            <div class="step">Cut corner area $= 4 \times 3 = 12$ m² (but we'll do this properly in Section H!)</div>
+            <div class="step">Alternatively: split L into two pieces:<br>
+              Top rectangle (10 m × 3 m cut from 8 m tall → bottom piece 6 m × 10 m = 60 m²? Let's use direct subtraction.)<br>
+              L area $= 80 - 12 = 68$ m²
+            </div>
+            <p class="answer">Area = 68 m²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- G4 -->
+    <div class="card" id="g4">
+      <div class="card-header" onclick="toggle('g4')">
+        <span class="ex-num">G4</span>
+        <span>Pentagon: rectangle + triangle on top</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A pentagon is formed by a rectangle (12 cm × 7 cm) with an isosceles triangle
+          (base 12 cm, height 5 cm) sitting on top. Find the total area.
+        </p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Rectangle: $12 \times 7 = 84$ cm²</div>
+            <div class="step">Triangle: $\dfrac{1}{2} \times 12 \times 5 = 30$ cm²</div>
+            <div class="step">Total: $84 + 30 = 114$ cm²</div>
+            <p class="answer">Area = 114 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- G5 -->
+    <div class="card" id="g5">
+      <div class="card-header" onclick="toggle('g5')">
+        <span class="ex-num">G5</span>
+        <span>Arrow / chevron: rectangle + two triangles</span>
+        <span class="difficulty d4">Hard</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          An arrow shape is formed from a rectangle (14 cm × 4 cm) with two right triangles
+          attached on the left side, each with base 4 cm and height 2 cm.
+          The two triangles form a point. Find the total area.
+        </p>
+        <div class="hint-box">
+          <strong>Hint:</strong> The two triangles together form one rectangle (4 cm × 2 cm).
+          Or add them individually: each triangle is $\tfrac{1}{2} \times 4 \times 2$.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Rectangle: $14 \times 4 = 56$ cm²</div>
+            <div class="step">Two triangles: $2 \times \dfrac{1}{2} \times 4 \times 2 = 8$ cm²</div>
+            <div class="step">Total: $56 + 8 = 64$ cm²</div>
+            <p class="answer">Area = 64 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section G -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION H — Area by subtraction
+══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-h">H</span>
+    <span class="section-title">Finding area by subtraction</span>
+  </div>
+  <div class="section-intro">
+    Sometimes it is easier to compute the area of a <em>large, simple shape</em> and then
+    <strong>subtract</strong> the parts you don't want.
+    Area of shape = Area of outer shape − Area of removed part(s).
+  </div>
+  <div class="exercise-list">
+
+    <!-- H1 -->
+    <div class="card" id="h1">
+      <div class="card-header" onclick="toggle('h1')">
+        <span class="ex-num">H1</span>
+        <span>Picture frame: big rectangle minus small rectangle</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A rectangular picture frame has outer dimensions 20 cm × 15 cm.
+          The inner opening is 14 cm × 9 cm. Find the area of the frame itself.
+        </p>
+        <div class="diagram">
+          <svg width="260" height="195" viewBox="0 0 260 195">
+            <!-- Outer rectangle -->
+            <rect x="10" y="10" width="240" height="175" fill="#d0e8ff" stroke="#4a90d9" stroke-width="2"/>
+            <!-- Inner cutout -->
+            <rect x="43" y="43" width="174" height="109" fill="#f5f4ef" stroke="#4a90d9" stroke-width="1.5"/>
+            <!-- Outer labels -->
+            <text x="130" y="192" text-anchor="middle" font-size="12" fill="#1a4a8a">20 cm</text>
+            <text x="5" y="100" text-anchor="middle" font-size="12" fill="#1a4a8a" transform="rotate(-90,5,100)">15 cm</text>
+            <!-- Inner labels -->
+            <text x="130" y="168" text-anchor="middle" font-size="11" fill="#888">14 cm</text>
+            <text x="30" y="100" text-anchor="middle" font-size="11" fill="#888" transform="rotate(-90,30,100)">9 cm</text>
+          </svg>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer area $= 20 \times 15 = 300$ cm²</div>
+            <div class="step">Inner area $= 14 \times 9 = 126$ cm²</div>
+            <div class="step">Frame area $= 300 - 126 = 174$ cm²</div>
+            <p class="answer">Frame area = 174 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- H2 -->
+    <div class="card" id="h2">
+      <div class="card-header" onclick="toggle('h2')">
+        <span class="ex-num">H2</span>
+        <span>Square minus a corner triangle</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A square has side 10 cm. A right triangle with legs 4 cm and 6 cm is cut from one corner.
+          Find the area of the remaining shape.
+        </p>
+        <div class="diagram">
+          <svg width="220" height="220" viewBox="0 0 220 220">
+            <!-- Square -->
+            <rect x="20" y="20" width="180" height="180" fill="#d0e8ff" stroke="#4a90d9" stroke-width="2"/>
+            <!-- Triangle to cut (top-right corner) -->
+            <polygon points="20,20 92,20 20,128" fill="#fde8e8" stroke="#e74c3c" stroke-width="2" stroke-dasharray="5 3"/>
+            <!-- Labels -->
+            <text x="110" y="213" text-anchor="middle" font-size="12" fill="#1a4a8a">10 cm</text>
+            <text x="8" y="113" text-anchor="middle" font-size="12" fill="#1a4a8a" transform="rotate(-90,8,113)">10 cm</text>
+            <text x="55" y="15" font-size="11" fill="#c0392b">4 cm</text>
+            <text x="5" y="75" font-size="11" fill="#c0392b" transform="rotate(-90,5,75)">6 cm</text>
+          </svg>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Square area $= 10 \times 10 = 100$ cm²</div>
+            <div class="step">Triangle area $= \dfrac{1}{2} \times 4 \times 6 = 12$ cm²</div>
+            <div class="step">Remaining area $= 100 - 12 = 88$ cm²</div>
+            <p class="answer">Remaining area = 88 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- H3 -->
+    <div class="card" id="h3">
+      <div class="card-header" onclick="toggle('h3')">
+        <span class="ex-num">H3</span>
+        <span>Rectangle minus two triangles = parallelogram</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A rectangle is 16 cm × 8 cm. Two identical right triangles (each with base 3 cm and height 8 cm)
+          are cut from the left and right ends to form a parallelogram. Find the parallelogram's area.
+        </p>
+        <div class="diagram">
+          <svg width="300" height="150" viewBox="0 0 300 150">
+            <!-- Full rectangle (dashed) -->
+            <rect x="10" y="20" width="280" height="110" fill="#f8f8f8" stroke="#ccc" stroke-width="1" stroke-dasharray="4 3"/>
+            <!-- Parallelogram -->
+            <polygon points="55,20 290,20 245,130 10,130" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+            <!-- Cut triangles -->
+            <polygon points="10,20 55,20 10,130" fill="#fde8e8" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <polygon points="245,130 290,20 290,130" fill="#fde8e8" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <!-- Labels -->
+            <text x="150" y="148" text-anchor="middle" font-size="12" fill="#555">16 cm</text>
+            <text x="155" y="80" text-anchor="middle" font-size="11" fill="#1a6b3a" font-style="italic">Parallelogram</text>
+            <text x="22" y="78" font-size="10" fill="#c0392b">3 cm</text>
+            <text x="262" y="78" font-size="10" fill="#c0392b">3 cm</text>
+          </svg>
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Rectangle area $= 16 \times 8 = 128$ cm²</div>
+            <div class="step">Each triangle area $= \dfrac{1}{2} \times 3 \times 8 = 12$ cm²</div>
+            <div class="step">Two triangles $= 2 \times 12 = 24$ cm²</div>
+            <div class="step">Parallelogram area $= 128 - 24 = 104$ cm²</div>
+            <p class="answer">Parallelogram area = 104 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- H4 -->
+    <div class="card" id="h4">
+      <div class="card-header" onclick="toggle('h4')">
+        <span class="ex-num">H4</span>
+        <span>Square minus 4 corner triangles — rotated inner square</span>
+        <span class="difficulty d4">Hard</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A square has side 10 cm. From each corner, a right isosceles triangle with legs 3 cm is cut.
+          The remaining shape is a regular octagon (almost). Find its area.
+        </p>
+        <div class="hint-box">
+          <strong>Hint:</strong> Each corner triangle has area $\dfrac{1}{2} \times 3 \times 3$. Subtract all four.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Square area $= 10^2 = 100$ cm²</div>
+            <div class="step">Each triangle area $= \dfrac{1}{2} \times 3 \times 3 = \dfrac{9}{2} = 4.5$ cm²</div>
+            <div class="step">Four triangles $= 4 \times 4.5 = 18$ cm²</div>
+            <div class="step">Octagon area $= 100 - 18 = 82$ cm²</div>
+            <p class="answer">Octagon area = 82 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- H5 -->
+    <div class="card" id="h5">
+      <div class="card-header" onclick="toggle('h5')">
+        <span class="ex-num">H5</span>
+        <span>Challenge: large triangle minus small triangle inside</span>
+        <span class="difficulty d5">Challenge</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A large right triangle has base 20 cm and height 15 cm.
+          Inside it, a smaller similar triangle (half the linear dimensions) is removed from the corner.
+          Find the area of the remaining region.
+        </p>
+        <div class="hint-box">
+          <strong>Hint:</strong> If linear dimensions are halved, the area scales by $\left(\dfrac{1}{2}\right)^2 = \dfrac{1}{4}$.
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Large triangle area $= \dfrac{1}{2} \times 20 \times 15 = 150$ cm²</div>
+            <div class="step">Small triangle dimensions: base $= 10$ cm, height $= 7.5$ cm</div>
+            <div class="step">Small triangle area $= \dfrac{1}{2} \times 10 \times 7.5 = 37.5$ cm²</div>
+            <div class="step">Also: $\dfrac{1}{4} \times 150 = 37.5$ cm² ✓ (similarity check)</div>
+            <div class="step">Remaining area $= 150 - 37.5 = 112.5$ cm²</div>
+            <p class="answer">Remaining area = 112.5 cm²</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section H -->
+
+</div><!-- /page -->
+
+<script>
+  function toggle(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function drawTiles(containerId, cols, rows, tileSize) {
+    tileSize = tileSize || 30;
+    const pad = 1;
+    const w = cols * tileSize + pad * 2;
+    const h = rows * tileSize + pad * 2;
+    let s = `<svg width="${w}" height="${h}" style="display:block;margin:0.8rem 0;border-radius:4px" xmlns="http://www.w3.org/2000/svg">`;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const x = c * tileSize + pad;
+        const y = r * tileSize + pad;
+        s += `<rect x="${x}" y="${y}" width="${tileSize - pad}" height="${tileSize - pad}" fill="#bde0fe" stroke="#4895ef" stroke-width="0.8" rx="1"/>`;
+      }
+    }
+    // Row count labels on right
+    for (let r = 0; r < rows; r++) {
+      const cy = r * tileSize + tileSize / 2 + pad;
+      if (rows <= 10) {
+        s += `<text x="${w + 6}" y="${cy + 4}" font-size="10" fill="#888" font-family="Georgia,serif">row ${r+1}</text>`;
+      }
+    }
+    s += '</svg>';
+    const el = document.getElementById(containerId);
+    if (el) el.innerHTML = s;
+  }
+
+  window.addEventListener('load', function() {
+    drawTiles('grid-a1', 3, 4, 38);
+    drawTiles('grid-a2', 5, 4, 38);
+    drawTiles('grid-a3', 12, 10, 24);
+    drawTiles('grid-a4', 6, 6, 36);
+    drawTiles('grid-a5', 7, 3, 36);
+  });
+</script>
+</body>
+</html>

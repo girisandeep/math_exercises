@@ -1,0 +1,25 @@
+Create exercises to teach a topic gradually. Give lots of exercises which are gradually increase in dificulty. Start extremely simple and grow to challenging level
+Prepare the html with prompt maths fractions and equations format.
+
+Topic: Area of rectangle, Square and Triangle
+File: basic_area.html
+
+Details:
+
+* Build intuition around area. Show a rectangle 10x12 tiles and let the user find how many tiles. Give them hint that they could just multiply. 
+
+* Next give some more exercises with tiles and let them count as well as multiply.
+
+* Teach them the idea of area of right angle triangle by showing that it is just half of the area of rectangle.
+
+* Give them many exercises on area of right angled trangle
+
+* Let them dervice a general formula on area of right angled triangle
+
+* Now, teach them the area of other kinds of triangle
+
+* Now give lots of different shapes that combine rectangle and triangles to build the practice of area.
+
+* Give exercises on calculating area by sutracting areas.
+
+
