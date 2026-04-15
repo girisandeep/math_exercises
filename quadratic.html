@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quadratic Equations – Step by Step</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #f5f4ef;
+      color: #222;
+      line-height: 1.7;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 0.3rem;
+      color: #1a1a2e;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+
+    /* ── Section header ── */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4rem;
+      height: 2.4rem;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .badge-a { background: #d0e8ff; color: #0a4a8a; }
+    .badge-b { background: #d5f5e3; color: #1a6b3a; }
+    .badge-c { background: #fde8d0; color: #8a3a0a; }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #1a1a2e;
+    }
+
+    .section-intro {
+      background: #fff;
+      border-left: 4px solid #aac;
+      padding: 0.9rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem;
+      font-size: 0.97rem;
+      color: #444;
+    }
+
+    /* ── Exercise card ── */
+    .exercise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.09);
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1.2rem;
+      gap: 0.8rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-header:hover { background: #fafaf6; }
+
+    .ex-num {
+      font-weight: bold;
+      font-size: 0.85rem;
+      min-width: 1.8rem;
+      color: #888;
+    }
+
+    .difficulty {
+      margin-left: auto;
+      font-size: 0.78rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .d1 { background:#e8f4fd; color:#2980b9; }
+    .d2 { background:#eafaf1; color:#27ae60; }
+    .d3 { background:#fef9e7; color:#d4a017; }
+    .d4 { background:#fdf2f8; color:#9b59b6; }
+    .d5 { background:#fdedec; color:#c0392b; }
+
+    .toggle-icon {
+      font-size: 0.85rem;
+      color: #aaa;
+      transition: transform 0.2s;
+    }
+
+    .card.open .toggle-icon { transform: rotate(180deg); }
+
+    .card-body {
+      display: none;
+      padding: 0 1.2rem 1rem 1.2rem;
+      border-top: 1px solid #f0f0ea;
+    }
+
+    .card.open .card-body { display: block; }
+
+    .problem {
+      font-size: 1.05rem;
+      margin: 0.8rem 0 0.5rem;
+    }
+
+    .hint-box {
+      background: #fffbec;
+      border: 1px dashed #e0c060;
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      margin-top: 0.7rem;
+      font-size: 0.93rem;
+      color: #6b5000;
+    }
+
+    .hint-box strong { color: #a07000; }
+
+    .solution-box {
+      background: #f0fff4;
+      border: 1px solid #b2dfdb;
+      border-radius: 6px;
+      padding: 0.7rem 1rem;
+      margin-top: 0.7rem;
+      font-size: 0.95rem;
+    }
+
+    .solution-box summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #1a6b3a;
+      list-style: none;
+    }
+    .solution-box summary::before { content: "▶ "; font-size: 0.75em; }
+    .solution-box[open] summary::before { content: "▼ "; }
+
+    .solution-content { margin-top: 0.5rem; }
+
+    .step {
+      margin: 0.4rem 0;
+      padding-left: 0.5rem;
+      border-left: 3px solid #b2dfdb;
+    }
+
+    .answer {
+      font-weight: bold;
+      color: #155a30;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Key insight box ── */
+    .insight {
+      background: #fff8e1;
+      border-left: 4px solid #f9a825;
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1.2rem;
+      margin: 1.5rem 0;
+      font-size: 0.97rem;
+    }
+    .insight-title { font-weight: bold; color: #7a5900; margin-bottom: 0.3rem; }
+
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
+      h1 { font-size: 1.4rem; }
+      .section-title { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Quadratic Equations</h1>
+  <p class="subtitle">A step-by-step journey — from zero to factoring</p>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION A
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-a">A</span>
+      <span class="section-title">When a product equals zero, solving is easy</span>
+    </div>
+
+    <div class="section-intro">
+      <strong>Key idea:</strong> If $A \times B = 0$, then either $A = 0$ <em>or</em> $B = 0$ (or both).
+      This is the <em>zero-product property</em>. Once an equation is written as a product, we just set each factor to zero.
+    </div>
+
+    <div class="exercise-list">
+
+      <!-- A1 -->
+      <div class="card" id="a1">
+        <div class="card-header" onclick="toggle('a1')">
+          <span class="ex-num">A1</span>
+          <span>Solve &nbsp; $x - 5 = 0$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the value of $x$ that makes this true: $$x - 5 = 0$$</p>
+          <div class="hint-box"><strong>Hint:</strong> What number minus 5 gives zero?</div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">Add 5 to both sides: $x = 5$</div>
+              <p class="answer">Answer: $x = 5$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A2 -->
+      <div class="card" id="a2">
+        <div class="card-header" onclick="toggle('a2')">
+          <span class="ex-num">A2</span>
+          <span>Solve &nbsp; $2(x - 3) = 0$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$2(x - 3) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> We have $A \times B = 0$ where $A = 2$ and $B = (x-3)$.
+            Can $A = 2$ ever equal zero? What about $B$?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$2 \neq 0$, so we need $x - 3 = 0$</div>
+              <div class="step">$x = 3$</div>
+              <p class="answer">Answer: $x = 3$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A3 -->
+      <div class="card" id="a3">
+        <div class="card-header" onclick="toggle('a3')">
+          <span class="ex-num">A3</span>
+          <span>Solve &nbsp; $(x - 3)(50 \cdot 10 + 10 - 5) = 0$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$(x - 3)\,(50 \cdot 10 + 10 - 5) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Simplify the second factor first. Is it zero?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">Compute the second factor: $50 \times 10 + 10 - 5 = 500 + 10 - 5 = 505$</div>
+              <div class="step">Equation becomes: $(x-3) \cdot 505 = 0$</div>
+              <div class="step">$505 \neq 0$, so we need $x - 3 = 0$</div>
+              <p class="answer">Answer: $x = 3$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                No matter how big or complicated a constant factor looks, if it isn't zero, only the variable factor matters.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A4 -->
+      <div class="card" id="a4">
+        <div class="card-header" onclick="toggle('a4')">
+          <span class="ex-num">A4</span>
+          <span>Solve &nbsp; $(x - 1)(x - 2) = 0$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$(x-1)(x-2) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Now <em>both</em> factors contain $x$. Either one could be zero. Try each case separately.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step"><strong>Case 1:</strong> $x - 1 = 0 \;\Rightarrow\; x = 1$</div>
+              <div class="step"><strong>Case 2:</strong> $x - 2 = 0 \;\Rightarrow\; x = 2$</div>
+              <p class="answer">Answer: $x = 1$ &nbsp; or &nbsp; $x = 2$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                A quadratic equation can have <em>two</em> solutions. Both are valid.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A5 -->
+      <div class="card" id="a5">
+        <div class="card-header" onclick="toggle('a5')">
+          <span class="ex-num">A5</span>
+          <span>Solve &nbsp; $10\!\left(x - \tfrac{1}{2}\right)\!\left(x - \tfrac{2}{3}\right) = 0$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$10\left(x - \frac{1}{2}\right)\!\left(x - \frac{2}{3}\right) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> The constant factor 10 cannot be zero. Apply the zero-product property to the two remaining factors.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$10 \neq 0$, so focus on the two brackets.</div>
+              <div class="step"><strong>Case 1:</strong> $x - \dfrac{1}{2} = 0 \;\Rightarrow\; x = \dfrac{1}{2}$</div>
+              <div class="step"><strong>Case 2:</strong> $x - \dfrac{2}{3} = 0 \;\Rightarrow\; x = \dfrac{2}{3}$</div>
+              <p class="answer">Answer: $x = \dfrac{1}{2}$ &nbsp; or &nbsp; $x = \dfrac{2}{3}$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A6 -->
+      <div class="card" id="a6">
+        <div class="card-header" onclick="toggle('a6')">
+          <span class="ex-num">A6</span>
+          <span>Solve &nbsp; $(x-4)(x-5)(x-6) = 0$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$(x-4)(x-5)(x-6) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Three factors — any one of them could be zero. Find all three cases.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step"><strong>Case 1:</strong> $x - 4 = 0 \;\Rightarrow\; x = 4$</div>
+              <div class="step"><strong>Case 2:</strong> $x - 5 = 0 \;\Rightarrow\; x = 5$</div>
+              <div class="step"><strong>Case 3:</strong> $x - 6 = 0 \;\Rightarrow\; x = 6$</div>
+              <p class="answer">Answer: $x = 4$, &nbsp; $x = 5$, &nbsp; or &nbsp; $x = 6$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                This is a <em>cubic</em> equation with three solutions — one per factor.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div><!-- /exercise-list -->
+  </div><!-- /section A -->
+
+
+  <!-- ═══════════════════════════════════════════
+       SECTION B
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-b">B</span>
+      <span class="section-title">Given $a+b$ and $ab$, can you find $a$ and $b$?</span>
+    </div>
+
+    <div class="section-intro">
+      We will build three algebraic identities like stepping stones, then use them to recover $a$ and $b$
+      from their sum and product — a key skill for factoring quadratics.
+    </div>
+
+    <div class="exercise-list">
+
+      <!-- B1 -->
+      <div class="card" id="b1">
+        <div class="card-header" onclick="toggle('b1')">
+          <span class="ex-num">B1</span>
+          <span>Expand &nbsp; $(a+b)^2$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Multiply out $(a+b)^2 = (a+b)(a+b)$. What do you get?</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Use FOIL: First, Outer, Inner, Last.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a+b)(a+b) = a^2 + ab + ba + b^2$</div>
+              <div class="step">$= a^2 + 2ab + b^2$</div>
+              <p class="answer">$$(a+b)^2 = a^2 + 2ab + b^2$$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B2 -->
+      <div class="card" id="b2">
+        <div class="card-header" onclick="toggle('b2')">
+          <span class="ex-num">B2</span>
+          <span>Expand &nbsp; $(a-b)^2$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Now expand $(a-b)^2 = (a-b)(a-b)$. What do you get?</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Same idea as B1, but watch the signs carefully.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a-b)(a-b) = a^2 - ab - ba + b^2$</div>
+              <div class="step">$= a^2 - 2ab + b^2$</div>
+              <p class="answer">$$(a-b)^2 = a^2 - 2ab + b^2$$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B3 -->
+      <div class="card" id="b3">
+        <div class="card-header" onclick="toggle('b3')">
+          <span class="ex-num">B3</span>
+          <span>Simplify &nbsp; $(a+b)^2 - (a-b)^2$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Using your answers from B1 and B2, compute:
+            $$(a+b)^2 - (a-b)^2$$
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Substitute the expanded forms and collect like terms.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a^2 + 2ab + b^2) - (a^2 - 2ab + b^2)$</div>
+              <div class="step">$= a^2 + 2ab + b^2 - a^2 + 2ab - b^2$</div>
+              <div class="step">$= 4ab$</div>
+              <p class="answer">$$(a+b)^2 - (a-b)^2 = 4ab$$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                Rearranging: $(a-b)^2 = (a+b)^2 - 4ab$
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B4 -->
+      <div class="card" id="b4">
+        <div class="card-header" onclick="toggle('b4')">
+          <span class="ex-num">B4</span>
+          <span>Find $a$ and $b$ given their sum and product</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Suppose you know:
+            $$a + b = S \qquad \text{and} \qquad ab = P$$
+            Can you find $a - b$, and then find $a$ and $b$ individually?
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> From B3, $(a-b)^2 = (a+b)^2 - 4ab$.
+            Once you have $a+b$ and $a-b$, add and subtract them.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">
+                <strong>Step 1 — find $a - b$:</strong><br>
+                $(a - b)^2 = (a+b)^2 - 4ab = S^2 - 4P$<br>
+                $a - b = \pm\sqrt{S^2 - 4P}$
+              </div>
+              <div class="step">
+                <strong>Step 2 — add equations:</strong><br>
+                $(a+b) + (a-b) = 2a \;\Rightarrow\; a = \dfrac{S + \sqrt{S^2-4P}}{2}$
+              </div>
+              <div class="step">
+                <strong>Step 3 — subtract equations:</strong><br>
+                $(a+b) - (a-b) = 2b \;\Rightarrow\; b = \dfrac{S - \sqrt{S^2-4P}}{2}$
+              </div>
+              <p class="answer">
+                $$a,\,b = \frac{S \pm \sqrt{S^2 - 4P}}{2}$$
+              </p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                <strong>Numerical example:</strong> $a+b = 5$, $ab = 6$.<br>
+                $(a-b)^2 = 25 - 24 = 1$, so $a - b = 1$.<br>
+                Then $a = 3$, $b = 2$.  Check: $3+2=5$ ✓, $3 \times 2=6$ ✓
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B — extra practice -->
+      <div class="card" id="b5">
+        <div class="card-header" onclick="toggle('b5')">
+          <span class="ex-num">B5</span>
+          <span>Practice: find $a$ and $b$ when $a+b=7,\; ab=12$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Given $a + b = 7$ and $ab = 12$, find $a$ and $b$.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Use the formula from B4.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a-b)^2 = 7^2 - 4(12) = 49 - 48 = 1$</div>
+              <div class="step">$a - b = 1$</div>
+              <div class="step">$a = \dfrac{7+1}{2} = 4, \quad b = \dfrac{7-1}{2} = 3$</div>
+              <p class="answer">$a = 4,\; b = 3$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <div class="card" id="b6">
+        <div class="card-header" onclick="toggle('b6')">
+          <span class="ex-num">B6</span>
+          <span>Practice: find $a$ and $b$ when $a+b=6,\; ab=8$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Given $a + b = 6$ and $ab = 8$, find $a$ and $b$.
+          </p>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a-b)^2 = 36 - 32 = 4$</div>
+              <div class="step">$a - b = 2$</div>
+              <div class="step">$a = 4, \quad b = 2$</div>
+              <p class="answer">$a = 4,\; b = 2$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div><!-- /exercise-list B -->
+  </div><!-- /section B -->
+
+
+  <!-- ═══════════════════════════════════════════
+       SECTION C
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-c">C</span>
+      <span class="section-title">Converting a quadratic to factor form</span>
+    </div>
+
+    <div class="section-intro">
+      <strong>The big idea:</strong> A quadratic $x^2 + Bx + C$ can always be written as $(x - a)(x - b)$.
+      Expand the right side and match coefficients to find $a$ and $b$.
+      Then use what we learned in Section B!
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">Key identity to remember</div>
+      $$(x - a)(x - b) = x^2 \;-\; (a+b)\,x \;+\; ab$$
+      So if $x^2 + Bx + C = (x-a)(x-b)$, then:
+      $$a + b = -B \qquad \text{and} \qquad ab = C$$
+    </div>
+
+    <div class="exercise-list">
+
+      <!-- C1 — guided walkthrough -->
+      <div class="card" id="c1">
+        <div class="card-header" onclick="toggle('c1')">
+          <span class="ex-num">C1</span>
+          <span>Factor &nbsp; $x^2 - 2x + 1$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Write $x^2 - 2x + 1$ in the form $(x - a)(x - b)$.
+          </p>
+          <div class="hint-box">
+            <strong>Step-by-step guide:</strong><br>
+            1. Assume $x^2 - 2x + 1 = (x-a)(x-b)$.<br>
+            2. Expand the right side.<br>
+            3. Match coefficients to find $a + b$ and $ab$.<br>
+            4. Use Section B to recover $a$ and $b$.
+          </div>
+          <details class="solution-box">
+            <summary>Show full solution</summary>
+            <div class="solution-content">
+              <div class="step">
+                <strong>Expand:</strong><br>
+                $(x-a)(x-b) = x^2 - (a+b)x + ab$
+              </div>
+              <div class="step">
+                <strong>Match with $x^2 - 2x + 1$:</strong><br>
+                $a + b = 2$ &nbsp;&nbsp; (coefficient of $x$ is $-2$, so $a+b = 2$)<br>
+                $ab = 1$
+              </div>
+              <div class="step">
+                <strong>Find $a - b$:</strong><br>
+                $(a-b)^2 = (a+b)^2 - 4ab = 4 - 4 = 0$<br>
+                $a - b = 0$, so $a = b$
+              </div>
+              <div class="step">
+                <strong>Recover $a$ and $b$:</strong><br>
+                $a = b = \dfrac{2}{2} = 1$
+              </div>
+              <p class="answer">$$x^2 - 2x + 1 = (x-1)(x-1) = (x-1)^2$$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                This is a <em>perfect square</em>. The equation $x^2 - 2x + 1 = 0$ has a single (repeated) solution $x = 1$.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C2 -->
+      <div class="card" id="c2">
+        <div class="card-header" onclick="toggle('c2')">
+          <span class="ex-num">C2</span>
+          <span>Factor &nbsp; $x^2 - 5x + 6$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x^2 - 5x + 6 = (x - a)(x - b)$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> What is $a+b$? What is $ab$? Find two numbers that add to 5 and multiply to 6.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">From the expansion: $a + b = 5$ and $ab = 6$</div>
+              <div class="step">$(a-b)^2 = 25 - 24 = 1 \;\Rightarrow\; a - b = 1$</div>
+              <div class="step">$a = 3,\; b = 2$</div>
+              <p class="answer">$$x^2 - 5x + 6 = (x-3)(x-2)$$</p>
+              <p class="answer">Solutions: $x = 3$ or $x = 2$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C3 -->
+      <div class="card" id="c3">
+        <div class="card-header" onclick="toggle('c3')">
+          <span class="ex-num">C3</span>
+          <span>Factor &nbsp; $x^2 + 7x + 12$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x^2 + 7x + 12 = (x - a)(x - b)$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Here the $x$-coefficient is $+7$, so $-(a+b) = +7$, meaning $a+b = -7$. And $ab = 12$. Both $a$ and $b$ are negative.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$a + b = -7$, $ab = 12$</div>
+              <div class="step">$(a-b)^2 = 49 - 48 = 1 \;\Rightarrow\; a - b = \pm 1$</div>
+              <div class="step">$a = -3,\; b = -4$ (or vice versa)</div>
+              <p class="answer">$$x^2 + 7x + 12 = (x+3)(x+4)$$</p>
+              <p class="answer">Solutions: $x = -3$ or $x = -4$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C4 -->
+      <div class="card" id="c4">
+        <div class="card-header" onclick="toggle('c4')">
+          <span class="ex-num">C4</span>
+          <span>Factor &nbsp; $x^2 - x - 6$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x^2 - x - 6 = (x - a)(x - b)$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $a + b = 1$ and $ab = -6$. One of $a$, $b$ is negative!
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$a + b = 1$, $ab = -6$</div>
+              <div class="step">$(a-b)^2 = 1 - 4(-6) = 1 + 24 = 25 \;\Rightarrow\; a-b = 5$</div>
+              <div class="step">$a = 3,\; b = -2$</div>
+              <p class="answer">$$x^2 - x - 6 = (x-3)(x+2)$$</p>
+              <p class="answer">Solutions: $x = 3$ or $x = -2$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C5 — irrational roots -->
+      <div class="card" id="c5">
+        <div class="card-header" onclick="toggle('c5')">
+          <span class="ex-num">C5</span>
+          <span>Factor &nbsp; $x^2 - 4x + 1$</span>
+          <span class="difficulty d4">Hard</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x^2 - 4x + 1 = (x - a)(x - b)$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $a + b = 4$ and $ab = 1$. $(a-b)^2 = 16 - 4 = 12$. The roots are irrational — use $\sqrt{12} = 2\sqrt{3}$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$a + b = 4$, $ab = 1$</div>
+              <div class="step">$(a - b)^2 = 16 - 4 = 12 \;\Rightarrow\; a - b = 2\sqrt{3}$</div>
+              <div class="step">
+                $a = \dfrac{4 + 2\sqrt{3}}{2} = 2 + \sqrt{3}$,
+                $\quad b = 2 - \sqrt{3}$
+              </div>
+              <p class="answer">$$x^2 - 4x + 1 = \bigl(x - (2+\sqrt{3})\bigr)\bigl(x - (2-\sqrt{3})\bigr)$$</p>
+              <p class="answer">Solutions: $x = 2 \pm \sqrt{3}$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C6 — the quadratic formula derived -->
+      <div class="card" id="c6">
+        <div class="card-header" onclick="toggle('c6')">
+          <span class="ex-num">C6</span>
+          <span>General case: derive the quadratic formula</span>
+          <span class="difficulty d5">Challenge</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Solve the general quadratic $$ax^2 + bx + c = 0, \quad a \neq 0$$
+            by dividing through by $a$ and applying the same method we used above.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong>
+            Divide by $a$ to get $x^2 + \dfrac{b}{a}x + \dfrac{c}{a} = 0$.
+            Now set $S = -\dfrac{b}{a}$ and $P = \dfrac{c}{a}$, and use B4.
+          </div>
+          <details class="solution-box">
+            <summary>Show derivation</summary>
+            <div class="solution-content">
+              <div class="step">
+                Divide by $a$: $\;x^2 + \dfrac{b}{a}x + \dfrac{c}{a} = 0$
+              </div>
+              <div class="step">
+                From the key identity: roots satisfy $\alpha + \beta = -\dfrac{b}{a}$, $\;\alpha\beta = \dfrac{c}{a}$
+              </div>
+              <div class="step">
+                $(\alpha - \beta)^2 = \left(\dfrac{b}{a}\right)^2 - \dfrac{4c}{a} = \dfrac{b^2 - 4ac}{a^2}$
+              </div>
+              <div class="step">
+                $\alpha - \beta = \dfrac{\sqrt{b^2 - 4ac}}{a}$
+              </div>
+              <div class="step">
+                $\alpha = \dfrac{-b/a + \sqrt{b^2-4ac}/a}{2} = \dfrac{-b + \sqrt{b^2-4ac}}{2a}$
+              </div>
+              <p class="answer">
+                $$\boxed{x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}}$$
+              </p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                This is the quadratic formula — and you just derived it from first principles!<br>
+                The expression $b^2 - 4ac$ is called the <em>discriminant</em>. When it is negative, there are no real solutions.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div><!-- /exercise-list C -->
+  </div><!-- /section C -->
+
+</div><!-- /page -->
+
+<script>
+  function toggle(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

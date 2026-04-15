@@ -1,0 +1,42 @@
+Create exercises to teach quadratic equaations graduation. Give lots of exercises which in gradually increase in dificult. Start extremely simple.
+Prepare the html with prompt maths fractions and equations format.
+
+Here are the details.
+
+## A. Solidify the idea that if we have equations in A * B form, it is easy to solve:
+
+    1. x - 5 = 0
+
+    2. 2*(x - 3) = 0
+
+    3. (x - 3) * (50*10+10-5) = 0
+
+    4. (x - 1)*(x - 2) = 0
+
+    5. 10*(x - 1/2)*(x - 2/3) = 0
+
+    6. (x - 4) * (x - 5) * (x - 6) = 0
+
+
+## B. Teach how to solve for a and b if a+b and ab is given?
+
+    1. How much is (a + b)^2 ?
+
+    2. How much is (a - b)^2
+
+    3. How much is (a + b)^2 - (a - b)^2
+
+    4. You are given (a + b) and ab, can you find a - b?
+
+## C. How convert quadractic equation to factor form?
+
+    Say, we have x^2 - 2x + 1 how to convert it into (x - 1)*(x - 1)?
+
+    Say?
+    x^2 - 2x + 1 = (x - a)*(x - b)
+
+    Expand the right side and find a + b and ab?
+    Now, can you find a and b?
+
+
+
