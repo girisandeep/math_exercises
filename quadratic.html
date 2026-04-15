@@ -390,6 +390,86 @@
         </div>
       </div>
 
+      <!-- A7 -->
+      <div class="card" id="a7">
+        <div class="card-header" onclick="toggle('a7')">
+          <span class="ex-num">A7</span>
+          <span>Solve &nbsp; $(x + 3)(x - 7) = 0$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$(x + 3)(x - 7) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $(x+3)$ is the same as $(x - (-3))$. Set each factor to zero.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step"><strong>Case 1:</strong> $x + 3 = 0 \;\Rightarrow\; x = -3$</div>
+              <div class="step"><strong>Case 2:</strong> $x - 7 = 0 \;\Rightarrow\; x = 7$</div>
+              <p class="answer">Answer: $x = -3$ &nbsp; or &nbsp; $x = 7$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                One solution is negative, one is positive — both are perfectly valid.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A8 -->
+      <div class="card" id="a8">
+        <div class="card-header" onclick="toggle('a8')">
+          <span class="ex-num">A8</span>
+          <span>Solve &nbsp; $(2x - 1)(3x + 6) = 0$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$(2x - 1)(3x + 6) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Set each factor to zero. When you get $2x - 1 = 0$, solve for $x$ by adding 1 then dividing by 2.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">
+                <strong>Case 1:</strong> $2x - 1 = 0 \;\Rightarrow\; 2x = 1 \;\Rightarrow\; x = \dfrac{1}{2}$
+              </div>
+              <div class="step">
+                <strong>Case 2:</strong> $3x + 6 = 0 \;\Rightarrow\; 3x = -6 \;\Rightarrow\; x = -2$
+              </div>
+              <p class="answer">Answer: $x = \dfrac{1}{2}$ &nbsp; or &nbsp; $x = -2$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A10 -->
+      <div class="card" id="a10">
+        <div class="card-header" onclick="toggle('a10')">
+          <span class="ex-num">A10</span>
+          <span>Solve &nbsp; $x(x - 1)(x + 5) = 0$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x(x - 1)(x + 5) = 0$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Notice the first factor is just $x$ — that is itself a factor! There are three factors total.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step"><strong>Case 1:</strong> $x = 0$</div>
+              <div class="step"><strong>Case 2:</strong> $x - 1 = 0 \;\Rightarrow\; x = 1$</div>
+              <div class="step"><strong>Case 3:</strong> $x + 5 = 0 \;\Rightarrow\; x = -5$</div>
+              <p class="answer">Answer: $x = 0$, &nbsp; $x = 1$, &nbsp; or &nbsp; $x = -5$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
     </div><!-- /exercise-list -->
   </div><!-- /section A -->
 
@@ -581,6 +661,113 @@
               <div class="step">$a - b = 2$</div>
               <div class="step">$a = 4, \quad b = 2$</div>
               <p class="answer">$a = 4,\; b = 2$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B7 -->
+      <div class="card" id="b7">
+        <div class="card-header" onclick="toggle('b7')">
+          <span class="ex-num">B7</span>
+          <span>Expand &nbsp; $(a + b)(a - b)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Multiply out $(a + b)(a - b)$. What pattern do you notice?</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Use FOIL. Pay close attention to the middle terms.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a+b)(a-b) = a^2 - ab + ab - b^2$</div>
+              <div class="step">$= a^2 - b^2$</div>
+              <p class="answer">$$(a+b)(a-b) = a^2 - b^2$$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                This is the <em>difference of two squares</em> identity. The middle terms cancel perfectly.
+                Read it backwards: $a^2 - b^2 = (a+b)(a-b)$ — very useful for factoring!
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B8 -->
+      <div class="card" id="b8">
+        <div class="card-header" onclick="toggle('b8')">
+          <span class="ex-num">B8</span>
+          <span>Practice: find $a$ and $b$ when $a+b=10,\; ab=16$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Given $a + b = 10$ and $ab = 16$, find $a$ and $b$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $(a-b)^2 = (a+b)^2 - 4ab$. Compute it, then find $a$ and $b$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a-b)^2 = 100 - 64 = 36 \;\Rightarrow\; a - b = 6$</div>
+              <div class="step">$a = \dfrac{10 + 6}{2} = 8, \quad b = \dfrac{10 - 6}{2} = 2$</div>
+              <p class="answer">$a = 8,\; b = 2$</p>
+              <p style="margin-top:0.3rem; font-size:0.9rem; color:#555">Check: $8 + 2 = 10$ ✓, $8 \times 2 = 16$ ✓</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B9 -->
+      <div class="card" id="b9">
+        <div class="card-header" onclick="toggle('b9')">
+          <span class="ex-num">B9</span>
+          <span>Practice: find $a$ and $b$ when $a+b=3,\; ab=-10$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Given $a + b = 3$ and $ab = -10$, find $a$ and $b$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $ab$ is negative, so one of $a$, $b$ must be negative. The formula still works — just be careful with signs inside the square root.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a-b)^2 = 9 - 4(-10) = 9 + 40 = 49 \;\Rightarrow\; a - b = 7$</div>
+              <div class="step">$a = \dfrac{3 + 7}{2} = 5, \quad b = \dfrac{3 - 7}{2} = -2$</div>
+              <p class="answer">$a = 5,\; b = -2$</p>
+              <p style="margin-top:0.3rem; font-size:0.9rem; color:#555">Check: $5 + (-2) = 3$ ✓, $5 \times (-2) = -10$ ✓</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B10 -->
+      <div class="card" id="b10">
+        <div class="card-header" onclick="toggle('b10')">
+          <span class="ex-num">B10</span>
+          <span>Challenge: find $a$ and $b$ when $a+b = 1,\; ab = -\frac{3}{4}$</span>
+          <span class="difficulty d4">Hard</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Given $a + b = 1$ and $ab = -\dfrac{3}{4}$, find $a$ and $b$.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $(a-b)^2 = 1^2 - 4\!\left(-\dfrac{3}{4}\right)$. Simplify carefully.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$(a-b)^2 = 1 + 3 = 4 \;\Rightarrow\; a - b = 2$</div>
+              <div class="step">$a = \dfrac{1 + 2}{2} = \dfrac{3}{2}, \quad b = \dfrac{1 - 2}{2} = -\dfrac{1}{2}$</div>
+              <p class="answer">$a = \dfrac{3}{2},\; b = -\dfrac{1}{2}$</p>
+              <p style="margin-top:0.3rem; font-size:0.9rem; color:#555">
+                Check: $\dfrac{3}{2} + \left(-\dfrac{1}{2}\right) = 1$ ✓, $\dfrac{3}{2} \times \left(-\dfrac{1}{2}\right) = -\dfrac{3}{4}$ ✓
+              </p>
             </div>
           </details>
         </div>
@@ -812,6 +999,154 @@
               <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
                 This is the quadratic formula — and you just derived it from first principles!<br>
                 The expression $b^2 - 4ac$ is called the <em>discriminant</em>. When it is negative, there are no real solutions.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C7 -->
+      <div class="card" id="c7">
+        <div class="card-header" onclick="toggle('c7')">
+          <span class="ex-num">C7</span>
+          <span>Factor &nbsp; $x^2 - 16$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x^2 - 16 = (x - a)(x - b)$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $16 = 4^2$. This is a difference of two squares. Use the identity from B7.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$a + b = 0$ and $ab = -16$</div>
+              <div class="step">$(a - b)^2 = 0 - 4(-16) = 64 \;\Rightarrow\; a - b = 8$</div>
+              <div class="step">$a = 4,\; b = -4$</div>
+              <p class="answer">$$x^2 - 16 = (x - 4)(x + 4)$$</p>
+              <p class="answer">Solutions: $x = 4$ or $x = -4$</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                Shortcut: whenever the $x$-term is missing and the constant is negative, look for difference of squares.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C8 -->
+      <div class="card" id="c8">
+        <div class="card-header" onclick="toggle('c8')">
+          <span class="ex-num">C8</span>
+          <span>Factor &nbsp; $x^2 + 2x - 15$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x^2 + 2x - 15 = (x - a)(x - b)$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $a + b = -2$ and $ab = -15$. The product is negative, so $a$ and $b$ have opposite signs.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$a + b = -2$, $ab = -15$</div>
+              <div class="step">$(a-b)^2 = 4 - 4(-15) = 4 + 60 = 64 \;\Rightarrow\; a - b = 8$</div>
+              <div class="step">$a = \dfrac{-2 + 8}{2} = 3, \quad b = \dfrac{-2 - 8}{2} = -5$</div>
+              <p class="answer">$$x^2 + 2x - 15 = (x - 3)(x + 5)$$</p>
+              <p class="answer">Solutions: $x = 3$ or $x = -5$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C9 -->
+      <div class="card" id="c9">
+        <div class="card-header" onclick="toggle('c9')">
+          <span class="ex-num">C9</span>
+          <span>Factor &nbsp; $x^2 - 3x - \frac{10}{4}$</span>
+          <span class="difficulty d4">Hard</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">$$x^2 - 3x - \frac{10}{4} = (x - a)(x - b)$$</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $a + b = 3$ and $ab = -\dfrac{10}{4}$. You solved this exact pair of numbers in B10! (with different signs — check carefully.)
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$a + b = 3$, $\;ab = -\dfrac{10}{4} = -\dfrac{5}{2}$</div>
+              <div class="step">$(a-b)^2 = 9 - 4\!\left(-\dfrac{5}{2}\right) = 9 + 10 = 19$</div>
+              <div class="step">$a - b = \sqrt{19}$</div>
+              <div class="step">$a = \dfrac{3 + \sqrt{19}}{2}, \quad b = \dfrac{3 - \sqrt{19}}{2}$</div>
+              <p class="answer">$$x^2 - 3x - \frac{5}{2} = \left(x - \frac{3+\sqrt{19}}{2}\right)\!\left(x - \frac{3-\sqrt{19}}{2}\right)$$</p>
+              <p class="answer">Solutions: $x = \dfrac{3 \pm \sqrt{19}}{2}$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C10 -->
+      <div class="card" id="c10">
+        <div class="card-header" onclick="toggle('c10')">
+          <span class="ex-num">C10</span>
+          <span>Factor &nbsp; $2x^2 - 7x + 3$</span>
+          <span class="difficulty d4">Hard</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            $$2x^2 - 7x + 3 = 0$$
+            The leading coefficient is not 1. Divide through by 2 first, then factor.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Divide by 2 to get $x^2 - \dfrac{7}{2}x + \dfrac{3}{2} = 0$.
+            Now $a + b = \dfrac{7}{2}$ and $ab = \dfrac{3}{2}$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">Divide by 2: $x^2 - \dfrac{7}{2}x + \dfrac{3}{2} = 0$</div>
+              <div class="step">$a + b = \dfrac{7}{2}$, $\;ab = \dfrac{3}{2}$</div>
+              <div class="step">$(a - b)^2 = \dfrac{49}{4} - 6 = \dfrac{49 - 24}{4} = \dfrac{25}{4}$</div>
+              <div class="step">$a - b = \dfrac{5}{2}$</div>
+              <div class="step">$a = \dfrac{7/2 + 5/2}{2} = \dfrac{6}{2} = 3, \quad b = \dfrac{7/2 - 5/2}{2} = \dfrac{1}{2}$</div>
+              <p class="answer">$$2x^2 - 7x + 3 = 2\!\left(x - 3\right)\!\left(x - \frac{1}{2}\right) = (x-3)(2x-1)$$</p>
+              <p class="answer">Solutions: $x = 3$ or $x = \dfrac{1}{2}$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C11 -->
+      <div class="card" id="c11">
+        <div class="card-header" onclick="toggle('c11')">
+          <span class="ex-num">C11</span>
+          <span>No real solutions: $x^2 + x + 1 = 0$</span>
+          <span class="difficulty d5">Challenge</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Try to factor $x^2 + x + 1$. What goes wrong?
+            $$x^2 + x + 1 = (x - a)(x - b) \;?$$
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Find $a + b$ and $ab$, then compute $(a - b)^2$. What sign does it have?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$a + b = -1$, $\;ab = 1$</div>
+              <div class="step">$(a - b)^2 = (-1)^2 - 4(1) = 1 - 4 = -3$</div>
+              <div class="step">We need $(a-b)^2 = -3$, but a square can never be negative!</div>
+              <p class="answer">No real solutions exist.</p>
+              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
+                The <em>discriminant</em> $b^2 - 4ac = 1 - 4 = -3 &lt; 0$.
+                When the discriminant is negative, the quadratic has no real roots —
+                it cannot be factored over the real numbers.
+                (In the complex numbers, the roots are $x = \dfrac{-1 \pm i\sqrt{3}}{2}$.)
               </p>
             </div>
           </details>
