@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pythagorean Theorem – Step by Step</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Georgia', serif; background: #f5f4ef; color: #222; line-height: 1.7; padding: 2rem 1rem 4rem; }
+    .page { max-width: 860px; margin: 0 auto; }
+    h1 { font-size: 2rem; text-align: center; margin-bottom: 0.3rem; color: #1a1a2e; }
+    .subtitle { text-align: center; color: #555; margin-bottom: 2.5rem; font-style: italic; }
+    .section { margin-bottom: 3rem; }
+    .section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
+    .section-badge { display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; font-size: 1.1rem; font-weight: bold; flex-shrink: 0; }
+    .badge-a { background: #d0e8ff; color: #0a4a8a; }
+    .badge-b { background: #d5f5e3; color: #1a6b3a; }
+    .badge-c { background: #fde8d0; color: #8a3a0a; }
+    .badge-d { background: #f0e6ff; color: #5a0a8a; }
+    .section-title { font-size: 1.25rem; font-weight: bold; color: #1a1a2e; }
+    .section-intro { background: #fff; border-left: 4px solid #aac; padding: 0.9rem 1.2rem; border-radius: 0 8px 8px 0; margin-bottom: 1.5rem; font-size: 0.97rem; color: #444; }
+    .exercise-list { display: flex; flex-direction: column; gap: 1rem; }
+    .card { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.09); overflow: hidden; }
+    .card-header { display: flex; align-items: center; padding: 0.75rem 1.2rem; gap: 0.8rem; cursor: pointer; user-select: none; }
+    .card-header:hover { background: #fafaf6; }
+    .ex-num { font-weight: bold; font-size: 0.85rem; min-width: 2rem; color: #888; }
+    .difficulty { margin-left: auto; font-size: 0.78rem; padding: 0.15rem 0.55rem; border-radius: 999px; font-weight: 600; letter-spacing: 0.03em; flex-shrink: 0; }
+    .d1 { background:#e8f4fd; color:#2980b9; }
+    .d2 { background:#eafaf1; color:#27ae60; }
+    .d3 { background:#fef9e7; color:#d4a017; }
+    .d4 { background:#fdf2f8; color:#9b59b6; }
+    .d5 { background:#fdedec; color:#c0392b; }
+    .toggle-icon { font-size: 0.85rem; color: #aaa; transition: transform 0.2s; }
+    .card.open .toggle-icon { transform: rotate(180deg); }
+    .card-body { display: none; padding: 0 1.2rem 1.2rem 1.2rem; border-top: 1px solid #f0f0ea; }
+    .card.open .card-body { display: block; }
+    .problem { font-size: 1.02rem; margin: 0.8rem 0 0.5rem; }
+    .hint-box { background: #fffbec; border: 1px dashed #e0c060; border-radius: 6px; padding: 0.6rem 1rem; margin-top: 0.7rem; font-size: 0.93rem; color: #6b5000; }
+    .hint-box strong { color: #a07000; }
+    .solution-box { background: #f0fff4; border: 1px solid #b2dfdb; border-radius: 6px; padding: 0.7rem 1rem; margin-top: 0.7rem; font-size: 0.95rem; }
+    .solution-box summary { cursor: pointer; font-weight: bold; color: #1a6b3a; list-style: none; }
+    .solution-box summary::before { content: "▶ "; font-size: 0.75em; }
+    .solution-box[open] summary::before { content: "▼ "; }
+    .solution-content { margin-top: 0.5rem; }
+    .step { margin: 0.4rem 0; padding-left: 0.5rem; border-left: 3px solid #b2dfdb; }
+    .answer { font-weight: bold; color: #155a30; margin-top: 0.5rem; }
+    .insight { background: #fff8e1; border-left: 4px solid #f9a825; border-radius: 0 8px 8px 0; padding: 0.9rem 1.2rem; margin: 1.5rem 0; font-size: 0.97rem; }
+    .insight-title { font-weight: bold; color: #7a5900; margin-bottom: 0.3rem; }
+    .sub-q { margin: 0.3rem 0 0.3rem 0.5rem; font-size: 0.97rem; }
+    .sub-q::before { content: "▸ "; color: #888; }
+    svg text { font-family: Georgia, serif; }
+    .sq-diagram { margin: 0.8rem 0; text-align: center; }
+    .deriv-step { background: #f8f8ff; border: 1px solid #dde; border-radius: 6px; padding: 0.5rem 1rem; margin: 0.4rem 0; }
+    .check-mark { color: #27ae60; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+<h1>The Pythagorean Theorem</h1>
+<p class="subtitle">Discovering $a^2 + b^2 = c^2$ through squares, triangles, and geometry</p>
+
+<!-- ════════════════════════════════════════
+     SECTION A  —  Square inside a square
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-a">A</span>
+    <span class="section-title">A square inside a square</span>
+  </div>
+
+  <div class="section-intro">
+    Draw an outer square. Mark a point on each side at the same distance from a corner.
+    Connect those four points to form an inner (tilted) square. You get
+    <strong>four identical right triangles</strong> in the corners — with legs $a$ and $b$.
+    Work through each question below to uncover the relationship between the areas.
+  </div>
+
+  <div class="insight">
+    <div class="insight-title">How to read the diagram</div>
+    Each side of the outer square is divided into two pieces: length $a$ (orange label) and length $b$ (green label).
+    The inner blue square has side $c$ — the <em>hypotenuse</em> of each corner triangle.
+    The right-angle markers sit at the four outer corners.
+  </div>
+
+  <div class="exercise-list">
+
+    <!-- A1 : a=3, b=4 -->
+    <div class="card" id="a1">
+      <div class="card-header" onclick="toggle('a1')">
+        <span class="ex-num">A1</span>
+        <span>Triangle legs: $a = 3$, $b = 4$</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-a1"></div>
+        <p class="problem">The four corner triangles each have legs $a = 3$ and $b = 4$. Find:</p>
+        <div class="sub-q">Area of <strong>one</strong> right triangle</div>
+        <div class="sub-q">Total area of <strong>all four</strong> triangles</div>
+        <div class="sub-q">Side length of the <strong>outer</strong> square</div>
+        <div class="sub-q">Area of the <strong>outer</strong> square</div>
+        <div class="sub-q">Area of the <strong>inner</strong> square</div>
+        <div class="sub-q">Side length of the <strong>inner</strong> square (= $c$)</div>
+        <details class="solution-box">
+          <summary>Show all answers</summary>
+          <div class="solution-content">
+            <div class="step">One triangle: $\dfrac{1}{2} \times 3 \times 4 = 6$</div>
+            <div class="step">Four triangles: $4 \times 6 = 24$</div>
+            <div class="step">Outer side: $a + b = 3 + 4 = 7$</div>
+            <div class="step">Outer area: $7^2 = 49$</div>
+            <div class="step">Inner area: $49 - 24 = 25$</div>
+            <div class="step">Inner side: $c = \sqrt{25} = 5$</div>
+            <p class="answer">$c = 5$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A2 : a=5, b=12 -->
+    <div class="card" id="a2">
+      <div class="card-header" onclick="toggle('a2')">
+        <span class="ex-num">A2</span>
+        <span>Triangle legs: $a = 5$, $b = 12$</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-a2"></div>
+        <p class="problem">The four corner triangles each have legs $a = 5$ and $b = 12$. Find the six quantities as in A1.</p>
+        <details class="solution-box">
+          <summary>Show all answers</summary>
+          <div class="solution-content">
+            <div class="step">One triangle: $\dfrac{1}{2} \times 5 \times 12 = 30$</div>
+            <div class="step">Four triangles: $4 \times 30 = 120$</div>
+            <div class="step">Outer side: $5 + 12 = 17$</div>
+            <div class="step">Outer area: $17^2 = 289$</div>
+            <div class="step">Inner area: $289 - 120 = 169$</div>
+            <div class="step">Inner side: $c = \sqrt{169} = 13$</div>
+            <p class="answer">$c = 13$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A3 : a=6, b=8 -->
+    <div class="card" id="a3">
+      <div class="card-header" onclick="toggle('a3')">
+        <span class="ex-num">A3</span>
+        <span>Triangle legs: $a = 6$, $b = 8$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-a3"></div>
+        <p class="problem">Legs $a = 6$, $b = 8$. Find all six quantities.</p>
+        <details class="solution-box">
+          <summary>Show all answers</summary>
+          <div class="solution-content">
+            <div class="step">One triangle: $\dfrac{1}{2} \times 6 \times 8 = 24$</div>
+            <div class="step">Four triangles: $4 \times 24 = 96$</div>
+            <div class="step">Outer side: $6 + 8 = 14$</div>
+            <div class="step">Outer area: $14^2 = 196$</div>
+            <div class="step">Inner area: $196 - 96 = 100$</div>
+            <div class="step">Inner side: $c = \sqrt{100} = 10$</div>
+            <p class="answer">$c = 10$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A4 : a=4, b=7 -->
+    <div class="card" id="a4">
+      <div class="card-header" onclick="toggle('a4')">
+        <span class="ex-num">A4</span>
+        <span>Triangle legs: $a = 4$, $b = 7$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-a4"></div>
+        <p class="problem">Legs $a = 4$, $b = 7$. Find all six quantities. The answer for $c$ will not be a whole number — leave it as a square root.</p>
+        <details class="solution-box">
+          <summary>Show all answers</summary>
+          <div class="solution-content">
+            <div class="step">One triangle: $\dfrac{1}{2} \times 4 \times 7 = 14$</div>
+            <div class="step">Four triangles: $4 \times 14 = 56$</div>
+            <div class="step">Outer side: $4 + 7 = 11$</div>
+            <div class="step">Outer area: $11^2 = 121$</div>
+            <div class="step">Inner area: $121 - 56 = 65$</div>
+            <div class="step">Inner side: $c = \sqrt{65} \approx 8.06$</div>
+            <p class="answer">$c = \sqrt{65}$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A5 : a=8, b=15 -->
+    <div class="card" id="a5">
+      <div class="card-header" onclick="toggle('a5')">
+        <span class="ex-num">A5</span>
+        <span>Triangle legs: $a = 8$, $b = 15$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-a5"></div>
+        <p class="problem">Legs $a = 8$, $b = 15$. Find all six quantities.</p>
+        <details class="solution-box">
+          <summary>Show all answers</summary>
+          <div class="solution-content">
+            <div class="step">One triangle: $\dfrac{1}{2} \times 8 \times 15 = 60$</div>
+            <div class="step">Four triangles: $4 \times 60 = 240$</div>
+            <div class="step">Outer side: $8 + 15 = 23$</div>
+            <div class="step">Outer area: $23^2 = 529$</div>
+            <div class="step">Inner area: $529 - 240 = 289$</div>
+            <div class="step">Inner side: $c = \sqrt{289} = 17$</div>
+            <p class="answer">$c = 17$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- A6 : a=2, b=5 -->
+    <div class="card" id="a6">
+      <div class="card-header" onclick="toggle('a6')">
+        <span class="ex-num">A6</span>
+        <span>Triangle legs: $a = 2$, $b = 5$</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-a6"></div>
+        <p class="problem">Legs $a = 2$, $b = 5$. Find all six quantities.</p>
+        <details class="solution-box">
+          <summary>Show all answers</summary>
+          <div class="solution-content">
+            <div class="step">One triangle: $\dfrac{1}{2} \times 2 \times 5 = 5$</div>
+            <div class="step">Four triangles: $4 \times 5 = 20$</div>
+            <div class="step">Outer side: $2 + 5 = 7$</div>
+            <div class="step">Outer area: $7^2 = 49$</div>
+            <div class="step">Inner area: $49 - 20 = 29$</div>
+            <div class="step">Inner side: $c = \sqrt{29} \approx 5.39$</div>
+            <p class="answer">$c = \sqrt{29}$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section A -->
+
+
+<!-- ════════════════════════════════════════
+     SECTION B  —  Find the hypotenuse
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-b">B</span>
+    <span class="section-title">Finding the hypotenuse using the construction</span>
+  </div>
+
+  <div class="section-intro">
+    Now you are given a right triangle with legs $a$ and $b$.
+    Mentally build the square-in-square construction and work out $c$ step by step.
+    The path is always the same:
+    <strong>outer area → subtract 4 triangles → inner area → take square root → c</strong>.
+  </div>
+
+  <div class="exercise-list">
+
+    <!-- B1 -->
+    <div class="card" id="b1">
+      <div class="card-header" onclick="toggle('b1')">
+        <span class="ex-num">B1</span>
+        <span>Right triangle: $a = 3$, $b = 4$ — find $c$</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-b1"></div>
+        <p class="problem">
+          Build the square-in-square with these triangle legs.
+          Follow each step to find the hypotenuse $c$.
+        </p>
+        <div class="hint-box">
+          <strong>Step guide:</strong><br>
+          1. Outer side $= a + b$<br>
+          2. Outer area $= (a+b)^2$<br>
+          3. Four triangles area $= 4 \times \frac{1}{2}ab = 2ab$<br>
+          4. Inner area $= (a+b)^2 - 2ab$<br>
+          5. $c = \sqrt{\text{inner area}}$
+        </div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer side $= 3 + 4 = 7$</div>
+            <div class="step">Outer area $= 7^2 = 49$</div>
+            <div class="step">Four triangles $= 2 \times 3 \times 4 = 24$</div>
+            <div class="step">Inner area $= 49 - 24 = 25$</div>
+            <div class="step">$c = \sqrt{25} = 5$</div>
+            <p class="answer">Hypotenuse $c = 5$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B2 -->
+    <div class="card" id="b2">
+      <div class="card-header" onclick="toggle('b2')">
+        <span class="ex-num">B2</span>
+        <span>Right triangle: $a = 5$, $b = 12$ — find $c$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-b2"></div>
+        <p class="problem">Use the square-in-square method to find $c$.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer area $= (5+12)^2 = 17^2 = 289$</div>
+            <div class="step">Four triangles $= 2 \times 5 \times 12 = 120$</div>
+            <div class="step">Inner area $= 289 - 120 = 169$</div>
+            <div class="step">$c = \sqrt{169} = 13$</div>
+            <p class="answer">$c = 13$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B3 -->
+    <div class="card" id="b3">
+      <div class="card-header" onclick="toggle('b3')">
+        <span class="ex-num">B3</span>
+        <span>Right triangle: $a = 1$, $b = 1$ — find $c$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-b3"></div>
+        <p class="problem">Both legs are equal ($a = b = 1$). Use the method to find $c$. You should get a famous irrational number.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer area $= (1+1)^2 = 4$</div>
+            <div class="step">Four triangles $= 2 \times 1 \times 1 = 2$</div>
+            <div class="step">Inner area $= 4 - 2 = 2$</div>
+            <div class="step">$c = \sqrt{2} \approx 1.414$</div>
+            <p class="answer">$c = \sqrt{2}$ &nbsp; (the diagonal of a unit square)</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B4 -->
+    <div class="card" id="b4">
+      <div class="card-header" onclick="toggle('b4')">
+        <span class="ex-num">B4</span>
+        <span>Right triangle: $a = 7$, $b = 24$ — find $c$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-b4"></div>
+        <p class="problem">Use the method. The answer will be a whole number.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer area $= (7+24)^2 = 31^2 = 961$</div>
+            <div class="step">Four triangles $= 2 \times 7 \times 24 = 336$</div>
+            <div class="step">Inner area $= 961 - 336 = 625$</div>
+            <div class="step">$c = \sqrt{625} = 25$</div>
+            <p class="answer">$c = 25$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B5 -->
+    <div class="card" id="b5">
+      <div class="card-header" onclick="toggle('b5')">
+        <span class="ex-num">B5</span>
+        <span>Right triangle: $a = 9$, $b = 12$ — find $c$</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-b5"></div>
+        <p class="problem">Use the square-in-square method. The answer is a whole number.</p>
+        <div class="hint-box"><strong>Hint:</strong> $961 - 216 = ?$ Is the inner area a perfect square?</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer area $= (9+12)^2 = 21^2 = 441$</div>
+            <div class="step">Four triangles $= 2 \times 9 \times 12 = 216$</div>
+            <div class="step">Inner area $= 441 - 216 = 225$</div>
+            <div class="step">$c = \sqrt{225} = 15$</div>
+            <p class="answer">$c = 15$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- B6 -->
+    <div class="card" id="b6">
+      <div class="card-header" onclick="toggle('b6')">
+        <span class="ex-num">B6</span>
+        <span>Right triangle: $a = 3$, $b = 5$ — find $c$</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <div class="sq-diagram" id="sq-b6"></div>
+        <p class="problem">The answer will not be a whole number. Express $c$ as a square root and as a decimal (to 2 decimal places).</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer area $= (3+5)^2 = 64$</div>
+            <div class="step">Four triangles $= 2 \times 3 \times 5 = 30$</div>
+            <div class="step">Inner area $= 64 - 30 = 34$</div>
+            <div class="step">$c = \sqrt{34} \approx 5.83$</div>
+            <p class="answer">$c = \sqrt{34} \approx 5.83$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section B -->
+
+
+<!-- ════════════════════════════════════════
+     SECTION C  —  Derive the general formula
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-c">C</span>
+    <span class="section-title">Deriving the Pythagorean theorem</span>
+  </div>
+
+  <div class="section-intro">
+    Instead of computing with specific numbers, let's keep $a$ and $b$ as symbols and
+    work through the same five steps. We will arrive at a famous formula valid for <em>every</em>
+    right triangle.
+  </div>
+
+  <div class="exercise-list">
+
+    <!-- C1 -->
+    <div class="card" id="c1">
+      <div class="card-header" onclick="toggle('c1')">
+        <span class="ex-num">C1</span>
+        <span>Express the outer square area in terms of $a$ and $b$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          The outer square has side $a + b$. Write its area in two ways:
+          as $(a+b)^2$, and also by expanding the bracket fully.
+        </p>
+        <div class="hint-box"><strong>Hint:</strong> $(a+b)^2 = (a+b)(a+b)$. Use FOIL.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Outer area $= (a+b)^2$</div>
+            <div class="step">$= a^2 + 2ab + b^2$</div>
+            <p class="answer">Outer area $= a^2 + 2ab + b^2$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="card" id="c2">
+      <div class="card-header" onclick="toggle('c2')">
+        <span class="ex-num">C2</span>
+        <span>Express the area of all four triangles in terms of $a$ and $b$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Each right triangle has legs $a$ and $b$. Write the total area of all four triangles.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">One triangle area $= \dfrac{1}{2}ab$</div>
+            <div class="step">Four triangles $= 4 \times \dfrac{1}{2}ab = 2ab$</div>
+            <p class="answer">Four triangles area $= 2ab$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- C3 -->
+    <div class="card" id="c3">
+      <div class="card-header" onclick="toggle('c3')">
+        <span class="ex-num">C3</span>
+        <span>Express the inner square area — then derive $c^2 = a^2 + b^2$</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          The inner square has side $c$. Using your answers from C1 and C2,
+          write the inner area two ways:
+          <br>(i) as $c^2$
+          <br>(ii) as outer area minus four triangles.
+          <br>Set them equal and simplify to get the Pythagorean theorem.
+        </p>
+        <details class="solution-box">
+          <summary>Show derivation</summary>
+          <div class="solution-content">
+            <div class="deriv-step">Inner area $= c^2$ &nbsp; (side of inner square is $c$)</div>
+            <div class="deriv-step">Inner area $=$ outer area $-$ four triangles $= (a^2 + 2ab + b^2) - 2ab$</div>
+            <div class="deriv-step">$= a^2 + b^2$</div>
+            <div class="deriv-step">Therefore: $\quad c^2 = a^2 + b^2$</div>
+            <p class="answer">$$\boxed{c^2 = a^2 + b^2}$$</p>
+            <p style="margin-top:0.5rem;font-size:0.9rem;color:#555">
+              The two middle terms $+2ab$ and $-2ab$ cancel perfectly — that is the magic of this construction.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- C4 -->
+    <div class="card" id="c4">
+      <div class="card-header" onclick="toggle('c4')">
+        <span class="ex-num">C4</span>
+        <span>Verify with three numbers from Section A</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          Check that $c^2 = a^2 + b^2$ holds for A1, A2, and A5.
+        </p>
+        <details class="solution-box">
+          <summary>Show verification</summary>
+          <div class="solution-content">
+            <div class="step">A1: $3^2 + 4^2 = 9 + 16 = 25 = 5^2$ &nbsp; <span class="check-mark">✓</span></div>
+            <div class="step">A2: $5^2 + 12^2 = 25 + 144 = 169 = 13^2$ &nbsp; <span class="check-mark">✓</span></div>
+            <div class="step">A5: $8^2 + 15^2 = 64 + 225 = 289 = 17^2$ &nbsp; <span class="check-mark">✓</span></div>
+            <p class="answer">The formula $c^2 = a^2 + b^2$ is confirmed in all three cases.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section C -->
+
+
+<!-- ════════════════════════════════════════
+     SECTION D  —  Practice the formula
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="section-badge badge-d">D</span>
+    <span class="section-title">Practice: using $a^2 + b^2 = c^2$ directly</span>
+  </div>
+
+  <div class="section-intro">
+    Now apply the formula directly — no need to draw the full construction each time.
+    Some exercises ask for $c$, others ask you to find a missing leg $a$ or $b$.
+    Where indicated, verify your answer using the geometric method.
+  </div>
+
+  <div class="insight">
+    <div class="insight-title">Three forms of the formula</div>
+    $$c = \sqrt{a^2 + b^2} \qquad a = \sqrt{c^2 - b^2} \qquad b = \sqrt{c^2 - a^2}$$
+  </div>
+
+  <div class="exercise-list">
+
+    <!-- D1 -->
+    <div class="card" id="d1">
+      <div class="card-header" onclick="toggle('d1')">
+        <span class="ex-num">D1</span>
+        <span>Find $c$: &nbsp; $a = 6,\; b = 8$</span>
+        <span class="difficulty d1">Starter</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A right triangle has legs 6 and 8. Find the hypotenuse $c$.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$c^2 = 6^2 + 8^2 = 36 + 64 = 100$</div>
+            <div class="step">$c = \sqrt{100} = 10$</div>
+            <p class="answer">$c = 10$</p>
+            <p style="margin-top:0.4rem;font-size:0.9rem;color:#555">
+              Geometric check: outer area $=(6+8)^2=196$, four triangles $=2\times6\times8=96$, inner $=100$, $c=\sqrt{100}=10$ ✓
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D2 -->
+    <div class="card" id="d2">
+      <div class="card-header" onclick="toggle('d2')">
+        <span class="ex-num">D2</span>
+        <span>Find $c$: &nbsp; $a = 15,\; b = 20$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Legs 15 and 20. Find $c$.</p>
+        <div class="hint-box"><strong>Hint:</strong> Notice that $15 = 3 \times 5$ and $20 = 4 \times 5$. Can you spot the pattern from A1?</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$c^2 = 15^2 + 20^2 = 225 + 400 = 625$</div>
+            <div class="step">$c = \sqrt{625} = 25$</div>
+            <p class="answer">$c = 25$</p>
+            <p style="margin-top:0.4rem;font-size:0.9rem;color:#555">
+              This is the 3-4-5 triple scaled by 5: $(3\times5, 4\times5, 5\times5)$.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D3 -->
+    <div class="card" id="d3">
+      <div class="card-header" onclick="toggle('d3')">
+        <span class="ex-num">D3</span>
+        <span>Find $c$: &nbsp; $a = 7,\; b = 7$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">An isosceles right triangle has both legs equal to 7. Find $c$.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$c^2 = 7^2 + 7^2 = 49 + 49 = 98$</div>
+            <div class="step">$c = \sqrt{98} = \sqrt{49 \times 2} = 7\sqrt{2}$</div>
+            <p class="answer">$c = 7\sqrt{2} \approx 9.90$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D4 -->
+    <div class="card" id="d4">
+      <div class="card-header" onclick="toggle('d4')">
+        <span class="ex-num">D4</span>
+        <span>Find the missing leg: $c = 13,\; b = 5$, find $a$</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">A right triangle has hypotenuse 13 and one leg 5. Find the other leg $a$.</p>
+        <div class="hint-box"><strong>Hint:</strong> Rearrange: $a^2 = c^2 - b^2$.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$a^2 = 13^2 - 5^2 = 169 - 25 = 144$</div>
+            <div class="step">$a = \sqrt{144} = 12$</div>
+            <p class="answer">$a = 12$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D5 -->
+    <div class="card" id="d5">
+      <div class="card-header" onclick="toggle('d5')">
+        <span class="ex-num">D5</span>
+        <span>Find the missing leg: $c = 17,\; a = 8$, find $b$</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Hypotenuse 17, one leg 8. Find the other leg $b$.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$b^2 = 17^2 - 8^2 = 289 - 64 = 225$</div>
+            <div class="step">$b = \sqrt{225} = 15$</div>
+            <p class="answer">$b = 15$</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D6 -->
+    <div class="card" id="d6">
+      <div class="card-header" onclick="toggle('d6')">
+        <span class="ex-num">D6</span>
+        <span>Verify A4 with the formula: $a = 4,\; b = 7$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          In A4 you found $c = \sqrt{65}$ using the geometric method.
+          Confirm this directly with $c^2 = a^2 + b^2$.
+        </p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$c^2 = 4^2 + 7^2 = 16 + 49 = 65$</div>
+            <div class="step">$c = \sqrt{65}$</div>
+            <p class="answer">Matches A4 exactly. <span class="check-mark">✓</span></p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D7 -->
+    <div class="card" id="d7">
+      <div class="card-header" onclick="toggle('d7')">
+        <span class="ex-num">D7</span>
+        <span>Verify A6 with the formula: $a = 2,\; b = 5$</span>
+        <span class="difficulty d2">Easy</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">In A6 you found $c = \sqrt{29}$. Confirm with the formula.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$c^2 = 2^2 + 5^2 = 4 + 25 = 29$</div>
+            <div class="step">$c = \sqrt{29}$</div>
+            <p class="answer">Matches A6. <span class="check-mark">✓</span></p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D8 -->
+    <div class="card" id="d8">
+      <div class="card-header" onclick="toggle('d8')">
+        <span class="ex-num">D8</span>
+        <span>Is it a right triangle? $a = 9,\; b = 40,\; c = 41$</span>
+        <span class="difficulty d3">Medium</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">Check whether a triangle with sides 9, 40, and 41 is a right triangle by testing $a^2 + b^2 = c^2$.</p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$9^2 + 40^2 = 81 + 1600 = 1681$</div>
+            <div class="step">$41^2 = 1681$</div>
+            <p class="answer">$81 + 1600 = 1681$ ✓ &nbsp; — yes, it is a right triangle (the 9-40-41 triple).</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D9 -->
+    <div class="card" id="d9">
+      <div class="card-header" onclick="toggle('d9')">
+        <span class="ex-num">D9</span>
+        <span>Ladder problem: ladder 10 m, wall 8 m — how far from wall?</span>
+        <span class="difficulty d4">Hard</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A 10 m ladder leans against a vertical wall.
+          The top of the ladder touches the wall at 8 m above the ground.
+          How far is the base of the ladder from the wall?
+        </p>
+        <div class="sq-diagram">
+          <svg width="200" height="200" viewBox="0 0 200 200" style="display:block;margin:0.5rem auto">
+            <line x1="30" y1="10" x2="30" y2="180" stroke="#555" stroke-width="3"/>
+            <line x1="30" y1="180" x2="170" y2="180" stroke="#555" stroke-width="3"/>
+            <line x1="170" y1="180" x2="30" y2="44" stroke="#e67e22" stroke-width="3"/>
+            <rect x="30" y="164" width="14" height="14" fill="none" stroke="#555" stroke-width="1.5"/>
+            <text x="85" y="192" text-anchor="middle" font-size="13" fill="#1a4a8a" font-style="italic" font-family="Georgia,serif">d = ?</text>
+            <text x="18" y="115" text-anchor="end" font-size="13" fill="#1a4a8a" font-style="italic" font-family="Georgia,serif">8 m</text>
+            <text x="120" y="100" text-anchor="start" font-size="13" fill="#d35400" font-style="italic" font-family="Georgia,serif">10 m</text>
+          </svg>
+        </div>
+        <div class="hint-box"><strong>Hint:</strong> The ladder is the hypotenuse ($c = 10$), the wall height is one leg ($b = 8$). Find the base $a$.</div>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">$a^2 = c^2 - b^2 = 10^2 - 8^2 = 100 - 64 = 36$</div>
+            <div class="step">$a = \sqrt{36} = 6$ m</div>
+            <p class="answer">The base is 6 m from the wall.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D10 -->
+    <div class="card" id="d10">
+      <div class="card-header" onclick="toggle('d10')">
+        <span class="ex-num">D10</span>
+        <span>Diagonal of a rectangle: $12 \times 5$</span>
+        <span class="difficulty d4">Hard</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          A rectangle is 12 cm long and 5 cm wide.
+          Find the length of its diagonal.
+          Then verify using the square-in-square geometric method.
+        </p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step"><strong>Formula:</strong> diagonal $= \sqrt{12^2 + 5^2} = \sqrt{144 + 25} = \sqrt{169} = 13$ cm</div>
+            <div class="step"><strong>Geometric verification:</strong></div>
+            <div class="step">Outer area $= (12+5)^2 = 289$</div>
+            <div class="step">Four triangles $= 2 \times 12 \times 5 = 120$</div>
+            <div class="step">Inner area $= 289 - 120 = 169 = 13^2$ &nbsp; <span class="check-mark">✓</span></div>
+            <p class="answer">Diagonal $= 13$ cm</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- D11 -->
+    <div class="card" id="d11">
+      <div class="card-header" onclick="toggle('d11')">
+        <span class="ex-num">D11</span>
+        <span>Challenge: three squares on the sides</span>
+        <span class="difficulty d5">Challenge</span>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="problem">
+          Draw squares on each of the three sides of a right triangle with legs 3 and 4.
+          Show that the area of the square on the hypotenuse equals the sum of the areas of the squares on the two legs.
+          This is the original geometric meaning of the Pythagorean theorem.
+        </p>
+        <details class="solution-box">
+          <summary>Show solution</summary>
+          <div class="solution-content">
+            <div class="step">Square on leg $a = 3$: area $= 3^2 = 9$</div>
+            <div class="step">Square on leg $b = 4$: area $= 4^2 = 16$</div>
+            <div class="step">Sum $= 9 + 16 = 25$</div>
+            <div class="step">Hypotenuse $c = 5$, so square on $c$: area $= 5^2 = 25$</div>
+            <p class="answer">$9 + 16 = 25$ ✓ &nbsp; — the square on $c$ equals the sum of squares on $a$ and $b$.</p>
+            <p style="margin-top:0.5rem;font-size:0.9rem;color:#555">
+              In symbols: the three squares have areas $a^2$, $b^2$, and $c^2$.
+              The theorem says $a^2 + b^2 = c^2$ — the areas of the two smaller squares
+              add up to the area of the largest square.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /section D -->
+
+</div><!-- /page -->
+
+<script>
+  function toggle(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  /* ── Square-in-square SVG generator ── */
+  function makeSqInSq(a, b) {
+    const maxSide = 200;
+    const padH = 28, padV = 28;
+    const s = a + b;
+    const sc = maxSide / s;
+    const S  = s * sc;
+    const W  = S + 2 * padH + 24;
+    const H  = S + 2 * padV + 18;
+    const ox = padH, oy = padV;
+
+    const TLx=ox,     TLy=oy;
+    const TRx=ox+S,   TRy=oy;
+    const BRx=ox+S,   BRy=oy+S;
+    const BLx=ox,     BLy=oy+S;
+
+    const ax=a*sc, bx=b*sc;
+    const I1x=ox+ax, I1y=oy;
+    const I2x=ox+S,  I2y=oy+ax;
+    const I3x=ox+bx, I3y=oy+S;
+    const I4x=ox,    I4y=oy+bx;
+
+    const ra = Math.min(13, sc * 0.75);
+    const fs = 13;
+    const lo = 14;
+    const ff = `font-family="Georgia,serif"`;
+    const T  = (x,y,txt,anc,col) =>
+      `<text x="${x}" y="${y}" text-anchor="${anc||'middle'}" font-size="${fs}"
+       fill="${col||'#333'}" font-style="italic" ${ff}>${txt}</text>`;
+
+    return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0.5rem auto">
+  <polygon points="${TLx},${TLy} ${I1x},${I1y} ${I4x},${I4y}" fill="#fde8d0" stroke="#d35400" stroke-width="1.5"/>
+  <polygon points="${TRx},${TRy} ${I2x},${I2y} ${I1x},${I1y}" fill="#fde8d0" stroke="#d35400" stroke-width="1.5"/>
+  <polygon points="${BRx},${BRy} ${I3x},${I3y} ${I2x},${I2y}" fill="#fde8d0" stroke="#d35400" stroke-width="1.5"/>
+  <polygon points="${BLx},${BLy} ${I4x},${I4y} ${I3x},${I3y}" fill="#fde8d0" stroke="#d35400" stroke-width="1.5"/>
+  <polygon points="${I1x},${I1y} ${I2x},${I2y} ${I3x},${I3y} ${I4x},${I4y}" fill="#d0e8ff" stroke="#2980b9" stroke-width="2"/>
+  <rect x="${ox}" y="${oy}" width="${S}" height="${S}" fill="none" stroke="#333" stroke-width="2"/>
+  <polyline points="${TLx+ra},${TLy} ${TLx+ra},${TLy+ra} ${TLx},${TLy+ra}" fill="none" stroke="#555" stroke-width="1.2"/>
+  <polyline points="${TRx-ra},${TRy} ${TRx-ra},${TRy+ra} ${TRx},${TRy+ra}" fill="none" stroke="#555" stroke-width="1.2"/>
+  <polyline points="${BRx},${BRy-ra} ${BRx-ra},${BRy-ra} ${BRx-ra},${BRy}" fill="none" stroke="#555" stroke-width="1.2"/>
+  <polyline points="${BLx},${BLy-ra} ${BLx+ra},${BLy-ra} ${BLx+ra},${BLy}" fill="none" stroke="#555" stroke-width="1.2"/>
+  ${T((TLx+I1x)/2, oy-lo/2, 'a', 'middle', '#8a3a0a')}
+  ${T((I1x+TRx)/2, oy-lo/2, 'b', 'middle', '#1a6b3a')}
+  ${T(ox+S+lo, (TRy+I2y)/2+4, 'a', 'start', '#8a3a0a')}
+  ${T(ox+S+lo, (I2y+BRy)/2+4, 'b', 'start', '#1a6b3a')}
+  ${T((BRx+I3x)/2, oy+S+lo+4, 'a', 'middle', '#8a3a0a')}
+  ${T((I3x+BLx)/2, oy+S+lo+4, 'b', 'middle', '#1a6b3a')}
+  ${T(ox-lo, (BLy+I4y)/2+4, 'a', 'end', '#8a3a0a')}
+  ${T(ox-lo, (I4y+TLy)/2+4, 'b', 'end', '#1a6b3a')}
+  ${T((I1x+I2x)/2+7, (I1y+I2y)/2-5, 'c', 'start', '#1a4a8a')}
+</svg>`;
+  }
+
+  /* ── Render all diagrams on page load ── */
+  const diagrams = {
+    'sq-a1': [3,4], 'sq-a2': [5,12], 'sq-a3': [6,8],
+    'sq-a4': [4,7], 'sq-a5': [8,15], 'sq-a6': [2,5],
+    'sq-b1': [3,4], 'sq-b2': [5,12], 'sq-b3': [1,1],
+    'sq-b4': [7,24],'sq-b5': [9,12], 'sq-b6': [3,5]
+  };
+
+  window.addEventListener('load', function() {
+    for (const [id, [a, b]] of Object.entries(diagrams)) {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = makeSqInSq(a, b);
+    }
+  });
+</script>
+</body>
+</html>
