@@ -1,0 +1,23 @@
+Create exercises to teach summation of arithmatic progression gradually. Give lots of exercises which are in gradually increase in dificulty. Start extremely simple.
+
+Prepare the html with proper maths fractions and equations format. Let the learner figure out formulas instead of memorizing existing formulas.
+
+
+Save it to file: arithmatic_sequence.html
+
+Here are the details.
+
+* Find the value of 6 + 6 + 6 + 10 times
+
+* add numbers from 1 to 5.
+
+* add numbers from 1 to 10
+
+* add numbers from 1 to 20. Give hint that what if you sum first and last, second and second last and so on. will that make the process easier.
+
+* add numbers from 1 to 50. 
+
+* add numbers from 1 to 1000.
+
+* Now, let the learner comeup with generalized formula
+
