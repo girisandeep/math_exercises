@@ -573,44 +573,40 @@
       <div class="card" id="b4">
         <div class="card-header" onclick="toggle('b4')">
           <span class="ex-num">B4</span>
-          <span>Find $a$ and $b$ given their sum and product</span>
+          <span>Find $a$ and $b$ when $a+b=5,\; ab=6$</span>
           <span class="difficulty d3">Medium</span>
           <span class="toggle-icon">▼</span>
         </div>
         <div class="card-body">
           <p class="problem">
-            Suppose you know:
-            $$a + b = S \qquad \text{and} \qquad ab = P$$
-            Can you find $a - b$, and then find $a$ and $b$ individually?
+            You know two things about $a$ and $b$:
+            $$a + b = 5 \qquad \text{and} \qquad ab = 6$$
+            Find $a$ and $b$ individually.
           </p>
           <div class="hint-box">
-            <strong>Hint:</strong> From B3, $(a-b)^2 = (a+b)^2 - 4ab$.
-            Once you have $a+b$ and $a-b$, add and subtract them.
+            <strong>Hint:</strong> From B3 you know $(a-b)^2 = (a+b)^2 - 4ab$.
+            Plug in the numbers to compute $(a-b)^2$, then find $a - b$.
+            Once you have both $a+b$ and $a-b$, can you find $a$ and $b$?
+            Try adding the two equations, then subtracting them.
           </div>
           <details class="solution-box">
             <summary>Show solution</summary>
             <div class="solution-content">
               <div class="step">
                 <strong>Step 1 — find $a - b$:</strong><br>
-                $(a - b)^2 = (a+b)^2 - 4ab = S^2 - 4P$<br>
-                $a - b = \pm\sqrt{S^2 - 4P}$
+                $(a-b)^2 = (a+b)^2 - 4ab = 5^2 - 4 \times 6 = 25 - 24 = 1$<br>
+                $a - b = 1$
               </div>
               <div class="step">
-                <strong>Step 2 — add equations:</strong><br>
-                $(a+b) + (a-b) = 2a \;\Rightarrow\; a = \dfrac{S + \sqrt{S^2-4P}}{2}$
+                <strong>Step 2 — add the two equations:</strong><br>
+                $(a + b) + (a - b) = 5 + 1 = 6 = 2a \;\Rightarrow\; a = 3$
               </div>
               <div class="step">
-                <strong>Step 3 — subtract equations:</strong><br>
-                $(a+b) - (a-b) = 2b \;\Rightarrow\; b = \dfrac{S - \sqrt{S^2-4P}}{2}$
+                <strong>Step 3 — subtract the two equations:</strong><br>
+                $(a + b) - (a - b) = 5 - 1 = 4 = 2b \;\Rightarrow\; b = 2$
               </div>
-              <p class="answer">
-                $$a,\,b = \frac{S \pm \sqrt{S^2 - 4P}}{2}$$
-              </p>
-              <p style="margin-top:0.5rem; font-size:0.9rem; color:#555">
-                <strong>Numerical example:</strong> $a+b = 5$, $ab = 6$.<br>
-                $(a-b)^2 = 25 - 24 = 1$, so $a - b = 1$.<br>
-                Then $a = 3$, $b = 2$.  Check: $3+2=5$ ✓, $3 \times 2=6$ ✓
-              </p>
+              <p class="answer">$a = 3,\; b = 2$</p>
+              <p style="margin-top:0.3rem; font-size:0.9rem; color:#555">Check: $3 + 2 = 5$ ✓, $3 \times 2 = 6$ ✓</p>
             </div>
           </details>
         </div>
