@@ -1,0 +1,18 @@
+Create exercises to teach distance computation in coordinate geometry gradually. Give lots of exercises which are in gradually increase in dificulty. Start extremely simple.
+
+Prepare the html with proper maths fractions and equations format. Let the learner figure out formulas instead of memorizing existing formulas. You can assume user know pythagorean theorm.
+
+
+Save it to file: distance.html
+
+Here are the details.
+
+
+A. Give exercises on how to compute the hypoteneus of a right angled triangle using pythagorean theorem. Give at least 4-5 example.
+
+
+B. In 2D, compute distance between two points. Give exercises and then let the learner create a right angled triangle and compute the hypoteneus length. 
+
+
+C. Now, give exercises to find distance between two points in 3D. Provide Hints and then visualizations.
+

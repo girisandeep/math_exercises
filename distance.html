@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Distance in Coordinate Geometry</title>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']] },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #f5f4ef;
+      color: #222;
+      line-height: 1.7;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .page { max-width: 820px; margin: 0 auto; }
+
+    h1 { font-size: 2rem; text-align: center; margin-bottom: 0.3rem; color: #1a1a2e; }
+
+    .subtitle {
+      text-align: center; color: #555;
+      margin-bottom: 2.5rem; font-style: italic;
+    }
+
+    .section { margin-bottom: 3rem; }
+
+    .section-header {
+      display: flex; align-items: center;
+      gap: 1rem; margin-bottom: 1.2rem;
+    }
+
+    .section-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 2.4rem; height: 2.4rem; border-radius: 50%;
+      font-size: 1.1rem; font-weight: bold; flex-shrink: 0;
+    }
+
+    .badge-a { background: #d0e8ff; color: #0a4a8a; }
+    .badge-b { background: #d5f5e3; color: #1a6b3a; }
+    .badge-c { background: #fde8d0; color: #8a3a0a; }
+
+    .section-title { font-size: 1.3rem; font-weight: bold; color: #1a1a2e; }
+
+    .section-intro {
+      background: #fff; border-left: 4px solid #aac;
+      padding: 0.9rem 1.2rem; border-radius: 0 8px 8px 0;
+      margin-bottom: 1.5rem; font-size: 0.97rem; color: #444;
+    }
+
+    .exercise-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .card {
+      background: #fff; border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.09); overflow: hidden;
+    }
+
+    .card-header {
+      display: flex; align-items: center; padding: 0.75rem 1.2rem;
+      gap: 0.8rem; cursor: pointer; user-select: none;
+    }
+
+    .card-header:hover { background: #fafaf6; }
+
+    .ex-num { font-weight: bold; font-size: 0.85rem; min-width: 1.8rem; color: #888; }
+
+    .difficulty {
+      margin-left: auto; font-size: 0.78rem;
+      padding: 0.15rem 0.55rem; border-radius: 999px;
+      font-weight: 600; letter-spacing: 0.03em;
+    }
+    .d1 { background:#e8f4fd; color:#2980b9; }
+    .d2 { background:#eafaf1; color:#27ae60; }
+    .d3 { background:#fef9e7; color:#d4a017; }
+    .d4 { background:#fdf2f8; color:#9b59b6; }
+    .d5 { background:#fdedec; color:#c0392b; }
+
+    .toggle-icon { font-size: 0.85rem; color: #aaa; transition: transform 0.2s; }
+    .card.open .toggle-icon { transform: rotate(180deg); }
+
+    .card-body {
+      display: none; padding: 0 1.2rem 1rem 1.2rem;
+      border-top: 1px solid #f0f0ea;
+    }
+    .card.open .card-body { display: block; }
+
+    .problem { font-size: 1.05rem; margin: 0.8rem 0 0.5rem; }
+
+    .hint-box {
+      background: #fffbec; border: 1px dashed #e0c060;
+      border-radius: 6px; padding: 0.6rem 1rem;
+      margin-top: 0.7rem; font-size: 0.93rem; color: #6b5000;
+    }
+    .hint-box strong { color: #a07000; }
+
+    .solution-box {
+      background: #f0fff4; border: 1px solid #b2dfdb;
+      border-radius: 6px; padding: 0.7rem 1rem;
+      margin-top: 0.7rem; font-size: 0.95rem;
+    }
+    .solution-box summary {
+      cursor: pointer; font-weight: bold; color: #1a6b3a; list-style: none;
+    }
+    .solution-box summary::before { content: "▶ "; font-size: 0.75em; }
+    .solution-box[open] summary::before { content: "▼ "; }
+    .solution-content { margin-top: 0.5rem; }
+
+    .step {
+      margin: 0.4rem 0; padding-left: 0.5rem;
+      border-left: 3px solid #b2dfdb;
+    }
+    .answer { font-weight: bold; color: #155a30; margin-top: 0.5rem; }
+
+    .insight {
+      background: #fff8e1; border-left: 4px solid #f9a825;
+      border-radius: 0 8px 8px 0; padding: 0.9rem 1.2rem;
+      margin: 1.5rem 0; font-size: 0.97rem;
+    }
+    .insight-title { font-weight: bold; color: #7a5900; margin-bottom: 0.3rem; }
+
+    .viz-box {
+      display: flex; justify-content: center;
+      margin: 1.2rem 0 0.5rem;
+    }
+    .viz-box svg { max-width: 100%; height: auto; }
+
+    .note { font-size: 0.9rem; color: #555; margin-top: 0.5rem; }
+
+    @media (max-width: 500px) {
+      h1 { font-size: 1.4rem; }
+      .section-title { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <h1>Distance in Coordinate Geometry</h1>
+  <p class="subtitle">From the Pythagorean theorem to distances anywhere in space</p>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION A — Hypotenuse from two legs
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-a">A</span>
+      <span class="section-title">Finding the hypotenuse</span>
+    </div>
+
+    <div class="section-intro">
+      You already know: in a right-angled triangle with legs $a$ and $b$,
+      the three sides satisfy $a^2 + b^2 = c^2$.
+      Each exercise below gives you two legs. Your job is to find $c$.
+      The method is always the same — <em>square, add, root</em> — but the
+      answers will surprise you sometimes.
+    </div>
+
+    <div class="exercise-list">
+
+      <!-- A1 -->
+      <div class="card" id="a1">
+        <div class="card-header" onclick="toggle('a1')">
+          <span class="ex-num">A1</span>
+          <span>Legs $a = 3$, $b = 4$ — find the hypotenuse.</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">A right triangle has legs $a = 3$ and $b = 4$.
+            What is the length of the hypotenuse $c$?</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Write out $a^2 + b^2$, compute the sum, then take the square root.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$c^2 = 3^2 + 4^2 = 9 + 16 = 25$</div>
+              <div class="step">$c = \sqrt{25} = 5$</div>
+              <p class="answer">$c = 5$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A2 -->
+      <div class="card" id="a2">
+        <div class="card-header" onclick="toggle('a2')">
+          <span class="ex-num">A2</span>
+          <span>Legs $a = 5$, $b = 12$ — find the hypotenuse.</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">A right triangle has legs $a = 5$ and $b = 12$. Find $c$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $5^2 = 25$, $12^2 = 144$. Add and take the root.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$c^2 = 25 + 144 = 169$</div>
+              <div class="step">$c = \sqrt{169} = 13$</div>
+              <p class="answer">$c = 13$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A3 -->
+      <div class="card" id="a3">
+        <div class="card-header" onclick="toggle('a3')">
+          <span class="ex-num">A3</span>
+          <span>Legs $a = 6$, $b = 8$ — find the hypotenuse.</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">A right triangle has legs $a = 6$ and $b = 8$. Find $c$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Square, add, root. Does the answer remind you of A1?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$c^2 = 36 + 64 = 100$</div>
+              <div class="step">$c = 10$</div>
+              <p class="answer">$c = 10$</p>
+              <p class="note">
+                $(6,8,10)$ is just $(3,4,5)$ scaled by 2. Scaling all sides by the same factor
+                preserves the right angle — and scales the hypotenuse by the same factor.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A4 -->
+      <div class="card" id="a4">
+        <div class="card-header" onclick="toggle('a4')">
+          <span class="ex-num">A4</span>
+          <span>Legs $a = 1$, $b = 1$ — find the hypotenuse.</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            A right triangle has two equal legs $a = b = 1$
+            (this is the diagonal of a unit square). Find $c$.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $c^2 = 1 + 1$. The answer won't be a whole number —
+            leave it as $\sqrt{\cdot}$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$c^2 = 1 + 1 = 2$</div>
+              <div class="step">$c = \sqrt{2}$</div>
+              <p class="answer">$c = \sqrt{2} \approx 1.414$</p>
+              <p class="note">
+                $\sqrt{2}$ is irrational — it cannot be written as a fraction.
+                But it is a perfectly exact answer. We will meet it again in Section B.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A5 -->
+      <div class="card" id="a5">
+        <div class="card-header" onclick="toggle('a5')">
+          <span class="ex-num">A5</span>
+          <span>Legs $a = 8$, $b = 15$ — find the hypotenuse.</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">A right triangle has legs $a = 8$ and $b = 15$. Find $c$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $8^2 = 64$, $15^2 = 225$. Does the sum happen to be a perfect square?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$c^2 = 64 + 225 = 289$</div>
+              <div class="step">$c = \sqrt{289} = 17$</div>
+              <p class="answer">$c = 17$</p>
+              <p class="note">$(8,15,17)$ is another whole-number Pythagorean triple.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A6 -->
+      <div class="card" id="a6">
+        <div class="card-header" onclick="toggle('a6')">
+          <span class="ex-num">A6</span>
+          <span>Legs $a = 2$, $b = 3$ — find the hypotenuse.</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">A right triangle has legs $a = 2$ and $b = 3$. Find $c$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Compute $2^2 + 3^2$. The sum is not a perfect square,
+            so leave the answer as $\sqrt{\cdot}$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$c^2 = 4 + 9 = 13$</div>
+              <div class="step">$c = \sqrt{13} \approx 3.606$</div>
+              <p class="answer">$c = \sqrt{13}$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- A7 -->
+      <div class="card" id="a7">
+        <div class="card-header" onclick="toggle('a7')">
+          <span class="ex-num">A7</span>
+          <span>Legs $a$ and $b$ (any values) — write a formula for $c$.</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            A right triangle has legs of length $a$ and $b$.
+            Write a single formula for the hypotenuse $c$ in terms of $a$ and $b$.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Look at what you did in every exercise above.
+            Describe the pattern as one expression.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$c^2 = a^2 + b^2$</div>
+              <p class="answer">$$c = \sqrt{a^2 + b^2}$$</p>
+              <p class="note">
+                This compact formula is the key to Section B and C.
+                Keep it in mind — you will rediscover it from coordinates.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div><!-- /exercise-list A -->
+  </div><!-- /section A -->
+
+
+  <!-- ═══════════════════════════════════════════
+       SECTION B — Distance between two points in 2D
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-b">B</span>
+      <span class="section-title">Distance between two points in 2D</span>
+    </div>
+
+    <div class="section-intro">
+      Given two points on a grid, how far apart are they?
+      The trick: <strong>draw a right triangle using the two points</strong>,
+      then apply the Pythagorean theorem to the triangle.
+      You get to figure out exactly how to build that triangle.
+    </div>
+
+    <!-- Concept diagram -->
+    <div class="viz-box">
+      <svg width="300" height="230" viewBox="0 0 300 230" font-family="Georgia,serif" font-size="13">
+        <!-- grid lines -->
+        <g stroke="#e8e8e0" stroke-width="1">
+          <!-- verticals x=0..6 -->
+          <line x1="30" y1="10" x2="30" y2="205"/>
+          <line x1="70" y1="10" x2="70" y2="205"/>
+          <line x1="110" y1="10" x2="110" y2="205"/>
+          <line x1="150" y1="10" x2="150" y2="205"/>
+          <line x1="190" y1="10" x2="190" y2="205"/>
+          <line x1="230" y1="10" x2="230" y2="205"/>
+          <line x1="270" y1="10" x2="270" y2="205"/>
+          <!-- horizontals y=0..4 -->
+          <line x1="10" y1="205" x2="285" y2="205"/>
+          <line x1="10" y1="165" x2="285" y2="165"/>
+          <line x1="10" y1="125" x2="285" y2="125"/>
+          <line x1="10" y1="85" x2="285" y2="85"/>
+          <line x1="10" y1="45" x2="285" y2="45"/>
+        </g>
+        <!-- axes -->
+        <line x1="30" y1="205" x2="280" y2="205" stroke="#999" stroke-width="1.5"/>
+        <line x1="30" y1="205" x2="30" y2="15" stroke="#999" stroke-width="1.5"/>
+        <!-- tick labels -->
+        <text x="66" y="220" text-anchor="middle" fill="#aaa" font-size="11">1</text>
+        <text x="106" y="220" text-anchor="middle" fill="#aaa" font-size="11">2</text>
+        <text x="146" y="220" text-anchor="middle" fill="#aaa" font-size="11">3</text>
+        <text x="186" y="220" text-anchor="middle" fill="#aaa" font-size="11">4</text>
+        <text x="226" y="220" text-anchor="middle" fill="#aaa" font-size="11">5</text>
+        <text x="16" y="168" text-anchor="end" fill="#aaa" font-size="11">1</text>
+        <text x="16" y="128" text-anchor="end" fill="#aaa" font-size="11">2</text>
+        <text x="16" y="88" text-anchor="end" fill="#aaa" font-size="11">3</text>
+        <text x="16" y="48" text-anchor="end" fill="#aaa" font-size="11">4</text>
+        <!-- triangle sides -->
+        <!-- A=(1,1)→svg(70,165)  B=(5,4)→svg(230,45)  C=(5,1)→svg(230,165) -->
+        <line x1="70" y1="165" x2="230" y2="165" stroke="#e74c3c" stroke-width="2"/>
+        <line x1="230" y1="165" x2="230" y2="45" stroke="#27ae60" stroke-width="2"/>
+        <line x1="70" y1="165" x2="230" y2="45" stroke="#2563eb" stroke-width="2.5"/>
+        <!-- right angle mark at C=(230,165) -->
+        <rect x="216" y="151" width="10" height="10" fill="none" stroke="#888" stroke-width="1.2"/>
+        <!-- points -->
+        <circle cx="70" cy="165" r="5" fill="#1a1a2e"/>
+        <circle cx="230" cy="45" r="5" fill="#1a1a2e"/>
+        <circle cx="230" cy="165" r="4" fill="#e0e0d8" stroke="#888" stroke-width="1"/>
+        <!-- labels -->
+        <text x="52" y="162" fill="#1a1a2e" font-size="12" font-weight="bold">A</text>
+        <text x="236" y="42" fill="#1a1a2e" font-size="12" font-weight="bold">B</text>
+        <text x="150" y="185" text-anchor="middle" fill="#c0392b" font-size="12">Δx = x₂ − x₁</text>
+        <text x="250" y="112" text-anchor="start" fill="#27ae60" font-size="12">Δy</text>
+        <text x="130" y="90" text-anchor="middle" fill="#2563eb" font-size="12" font-style="italic">d = ?</text>
+      </svg>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">The key idea</div>
+      Given $A = (x_1, y_1)$ and $B = (x_2, y_2)$, draw a horizontal line through $A$
+      and a vertical line through $B$. They meet at $C = (x_2, y_1)$.
+      Triangle $ACB$ is a right triangle with legs
+      $\Delta x = x_2 - x_1$ and $\Delta y = y_2 - y_1$.
+      Apply the Pythagorean theorem to get the distance $AB$.
+    </div>
+
+    <div class="exercise-list">
+
+      <!-- B1 -->
+      <div class="card" id="b1">
+        <div class="card-header" onclick="toggle('b1')">
+          <span class="ex-num">B1</span>
+          <span>Distance from $(0, 0)$ to $(3, 4)$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0)$ and $B = (3, 4)$.</p>
+          <!-- SVG: A=(0,0)→(30,195), B=(3,4)→(165,15), C=(3,0)→(165,195) scale=45 -->
+          <div class="viz-box">
+            <svg width="220" height="220" viewBox="0 0 220 220" font-family="Georgia,serif" font-size="12">
+              <!-- grid -->
+              <g stroke="#ebebE3" stroke-width="1">
+                <line x1="30" y1="15" x2="30" y2="200"/>
+                <line x1="75" y1="15" x2="75" y2="200"/>
+                <line x1="120" y1="15" x2="120" y2="200"/>
+                <line x1="165" y1="15" x2="165" y2="200"/>
+                <line x1="10" y1="200" x2="200" y2="200"/>
+                <line x1="10" y1="155" x2="200" y2="155"/>
+                <line x1="10" y1="110" x2="200" y2="110"/>
+                <line x1="10" y1="65" x2="200" y2="65"/>
+                <line x1="10" y1="20" x2="200" y2="20"/>
+              </g>
+              <line x1="30" y1="200" x2="205" y2="200" stroke="#999" stroke-width="1.5"/>
+              <line x1="30" y1="200" x2="30" y2="10" stroke="#999" stroke-width="1.5"/>
+              <!-- tick labels -->
+              <text x="75" y="215" text-anchor="middle" fill="#bbb" font-size="11">1</text>
+              <text x="120" y="215" text-anchor="middle" fill="#bbb" font-size="11">2</text>
+              <text x="165" y="215" text-anchor="middle" fill="#bbb" font-size="11">3</text>
+              <text x="16" y="158" text-anchor="end" fill="#bbb" font-size="11">1</text>
+              <text x="16" y="113" text-anchor="end" fill="#bbb" font-size="11">2</text>
+              <text x="16" y="68" text-anchor="end" fill="#bbb" font-size="11">3</text>
+              <text x="16" y="23" text-anchor="end" fill="#bbb" font-size="11">4</text>
+              <!-- triangle A=(30,200) B=(165,20) C=(165,200) -->
+              <line x1="30" y1="200" x2="165" y2="200" stroke="#e74c3c" stroke-width="2"/>
+              <line x1="165" y1="200" x2="165" y2="20" stroke="#27ae60" stroke-width="2"/>
+              <line x1="30" y1="200" x2="165" y2="20" stroke="#2563eb" stroke-width="2.5"/>
+              <rect x="151" y="186" width="10" height="10" fill="none" stroke="#888" stroke-width="1.2"/>
+              <!-- points -->
+              <circle cx="30" cy="200" r="5" fill="#1a1a2e"/>
+              <circle cx="165" cy="20" r="5" fill="#1a1a2e"/>
+              <!-- labels -->
+              <text x="12" y="198" fill="#1a1a2e" font-size="12" font-weight="bold">A</text>
+              <text x="170" y="17" fill="#1a1a2e" font-size="12" font-weight="bold">B</text>
+              <text x="97" y="215" text-anchor="middle" fill="#c0392b" font-size="12">3</text>
+              <text x="182" y="115" text-anchor="start" fill="#27ae60" font-size="12">4</text>
+              <text x="80" y="95" text-anchor="middle" fill="#2563eb" font-size="12" font-style="italic">d = ?</text>
+            </svg>
+          </div>
+          <div class="hint-box">
+            <strong>Hint:</strong> The horizontal leg goes from $(0,0)$ to $(3,0)$, length $= 3$.
+            The vertical leg goes from $(3,0)$ to $(3,4)$, length $= 4$.
+            Now use the Pythagorean theorem.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">Horizontal leg: $\Delta x = 3 - 0 = 3$</div>
+              <div class="step">Vertical leg: $\Delta y = 4 - 0 = 4$</div>
+              <div class="step">$d^2 = 3^2 + 4^2 = 9 + 16 = 25$</div>
+              <p class="answer">$d = 5$</p>
+              <p class="note">Same as exercise A1 — the two legs <em>are</em> the legs of a right triangle.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B2 -->
+      <div class="card" id="b2">
+        <div class="card-header" onclick="toggle('b2')">
+          <span class="ex-num">B2</span>
+          <span>Distance from $(0, 0)$ to $(5, 0)$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0)$ and $B = (5, 0)$.
+            (The two points lie on the same horizontal line.)</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> What is $\Delta y$ when both points have the same $y$-coordinate?
+            How does the Pythagorean theorem simplify?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 5$, $\Delta y = 0$</div>
+              <div class="step">$d = \sqrt{5^2 + 0^2} = \sqrt{25} = 5$</div>
+              <p class="answer">$d = 5$</p>
+              <p class="note">
+                When the two points share a $y$-coordinate, the "distance" is just $|\Delta x|$.
+                No triangle needed — the right triangle degenerates to a flat line.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B3 -->
+      <div class="card" id="b3">
+        <div class="card-header" onclick="toggle('b3')">
+          <span class="ex-num">B3</span>
+          <span>Distance from $(0, 0)$ to $(0, 4)$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0)$ and $B = (0, 4)$.
+            (The two points lie on the same vertical line.)</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> What is $\Delta x$ here? How does the formula simplify?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 0$, $\Delta y = 4$</div>
+              <div class="step">$d = \sqrt{0^2 + 4^2} = 4$</div>
+              <p class="answer">$d = 4$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B4 -->
+      <div class="card" id="b4">
+        <div class="card-header" onclick="toggle('b4')">
+          <span class="ex-num">B4</span>
+          <span>Distance from $(1, 2)$ to $(4, 6)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (1, 2)$ and $B = (4, 6)$.</p>
+          <!-- SVG: scale=35, origin=(20,240) A=(1,2)→(55,170) B=(4,6)→(160,30) C=(4,2)→(160,170) -->
+          <div class="viz-box">
+            <svg width="210" height="260" viewBox="0 0 210 260" font-family="Georgia,serif" font-size="12">
+              <!-- grid -->
+              <g stroke="#ebebE3" stroke-width="1">
+                <line x1="20" y1="10" x2="20" y2="248"/>
+                <line x1="55" y1="10" x2="55" y2="248"/>
+                <line x1="90" y1="10" x2="90" y2="248"/>
+                <line x1="125" y1="10" x2="125" y2="248"/>
+                <line x1="160" y1="10" x2="160" y2="248"/>
+                <line x1="195" y1="10" x2="195" y2="248"/>
+                <line x1="5" y1="240" x2="200" y2="240"/>
+                <line x1="5" y1="205" x2="200" y2="205"/>
+                <line x1="5" y1="170" x2="200" y2="170"/>
+                <line x1="5" y1="135" x2="200" y2="135"/>
+                <line x1="5" y1="100" x2="200" y2="100"/>
+                <line x1="5" y1="65" x2="200" y2="65"/>
+                <line x1="5" y1="30" x2="200" y2="30"/>
+              </g>
+              <line x1="20" y1="240" x2="205" y2="240" stroke="#999" stroke-width="1.5"/>
+              <line x1="20" y1="240" x2="20" y2="10" stroke="#999" stroke-width="1.5"/>
+              <!-- tick labels -->
+              <text x="55" y="254" text-anchor="middle" fill="#bbb" font-size="11">1</text>
+              <text x="90" y="254" text-anchor="middle" fill="#bbb" font-size="11">2</text>
+              <text x="125" y="254" text-anchor="middle" fill="#bbb" font-size="11">3</text>
+              <text x="160" y="254" text-anchor="middle" fill="#bbb" font-size="11">4</text>
+              <text x="9" y="208" text-anchor="end" fill="#bbb" font-size="11">1</text>
+              <text x="9" y="173" text-anchor="end" fill="#bbb" font-size="11">2</text>
+              <text x="9" y="138" text-anchor="end" fill="#bbb" font-size="11">3</text>
+              <text x="9" y="103" text-anchor="end" fill="#bbb" font-size="11">4</text>
+              <text x="9" y="68" text-anchor="end" fill="#bbb" font-size="11">5</text>
+              <text x="9" y="33" text-anchor="end" fill="#bbb" font-size="11">6</text>
+              <!-- triangle -->
+              <line x1="55" y1="170" x2="160" y2="170" stroke="#e74c3c" stroke-width="2"/>
+              <line x1="160" y1="170" x2="160" y2="30" stroke="#27ae60" stroke-width="2"/>
+              <line x1="55" y1="170" x2="160" y2="30" stroke="#2563eb" stroke-width="2.5"/>
+              <rect x="146" y="156" width="10" height="10" fill="none" stroke="#888" stroke-width="1.2"/>
+              <!-- points -->
+              <circle cx="55" cy="170" r="5" fill="#1a1a2e"/>
+              <circle cx="160" cy="30" r="5" fill="#1a1a2e"/>
+              <!-- labels -->
+              <text x="37" y="168" fill="#1a1a2e" font-size="12" font-weight="bold">A</text>
+              <text x="165" y="27" fill="#1a1a2e" font-size="12" font-weight="bold">B</text>
+              <text x="107" y="185" text-anchor="middle" fill="#c0392b" font-size="12">Δx = 3</text>
+              <text x="177" y="103" text-anchor="start" fill="#27ae60" font-size="12">Δy = 4</text>
+              <text x="90" y="88" text-anchor="middle" fill="#2563eb" font-size="12" font-style="italic">d = ?</text>
+            </svg>
+          </div>
+          <div class="hint-box">
+            <strong>Hint:</strong> First compute $\Delta x = 4 - 1$ and $\Delta y = 6 - 2$.
+            These are the legs of the right triangle. Then apply Pythagoras.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 4 - 1 = 3$</div>
+              <div class="step">$\Delta y = 6 - 2 = 4$</div>
+              <div class="step">$d^2 = 3^2 + 4^2 = 9 + 16 = 25$</div>
+              <p class="answer">$d = 5$</p>
+              <p class="note">
+                Same right triangle as B1 and A1 — just shifted on the grid.
+                Shifting doesn't change distances.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B5 -->
+      <div class="card" id="b5">
+        <div class="card-header" onclick="toggle('b5')">
+          <span class="ex-num">B5</span>
+          <span>Distance from $(0, 0)$ to $(1, 1)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0)$ and $B = (1, 1)$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $\Delta x = 1$, $\Delta y = 1$. This is the diagonal of a unit square.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$d = \sqrt{1^2 + 1^2} = \sqrt{2}$</div>
+              <p class="answer">$d = \sqrt{2} \approx 1.414$</p>
+              <p class="note">Same answer as exercise A4. A unit-square diagonal has length $\sqrt{2}$.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B6 -->
+      <div class="card" id="b6">
+        <div class="card-header" onclick="toggle('b6')">
+          <span class="ex-num">B6</span>
+          <span>Distance from $(-3, 1)$ to $(1, 4)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (-3, 1)$ and $B = (1, 4)$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $\Delta x = 1 - (-3)$. Careful with the double negative.
+            Then $\Delta y = 4 - 1$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 1 - (-3) = 4$</div>
+              <div class="step">$\Delta y = 4 - 1 = 3$</div>
+              <div class="step">$d = \sqrt{4^2 + 3^2} = \sqrt{16 + 9} = \sqrt{25} = 5$</div>
+              <p class="answer">$d = 5$</p>
+              <p class="note">
+                Negative coordinates are fine. The legs $\Delta x$ and $\Delta y$ can be
+                positive or negative, but you square them — so the sign disappears.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B7 -->
+      <div class="card" id="b7">
+        <div class="card-header" onclick="toggle('b7')">
+          <span class="ex-num">B7</span>
+          <span>Distance from $(-2, -3)$ to $(4, 5)$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (-2, -3)$ and $B = (4, 5)$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Compute $\Delta x = 4 - (-2)$ and $\Delta y = 5 - (-3)$.
+            Both involve subtracting a negative. Do you recognise the resulting triangle?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 4 - (-2) = 6$</div>
+              <div class="step">$\Delta y = 5 - (-3) = 8$</div>
+              <div class="step">$d = \sqrt{6^2 + 8^2} = \sqrt{36 + 64} = \sqrt{100} = 10$</div>
+              <p class="answer">$d = 10$</p>
+              <p class="note">Triangle $(6, 8, 10)$ — the $3{-}4{-}5$ triple scaled by 2.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B8 -->
+      <div class="card" id="b8">
+        <div class="card-header" onclick="toggle('b8')">
+          <span class="ex-num">B8</span>
+          <span>Distance from $(4, 1)$ to $(-1, 5)$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (4, 1)$ and $B = (-1, 5)$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $\Delta x = -1 - 4 = -5$. A negative $\Delta x$ just
+            means $B$ is to the left of $A$. Does it matter when you square it?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = -1 - 4 = -5$</div>
+              <div class="step">$\Delta y = 5 - 1 = 4$</div>
+              <div class="step">$d = \sqrt{(-5)^2 + 4^2} = \sqrt{25 + 16} = \sqrt{41}$</div>
+              <p class="answer">$d = \sqrt{41} \approx 6.40$</p>
+              <p class="note">
+                $(-5)^2 = 25$, same as $5^2 = 25$. Squaring kills the sign.
+                Distance is always non-negative, so this always works.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B9 -->
+      <div class="card" id="b9">
+        <div class="card-header" onclick="toggle('b9')">
+          <span class="ex-num">B9</span>
+          <span>Distance from $(2, 3)$ to $(7, 15)$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (2, 3)$ and $B = (7, 15)$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Compute $\Delta x$ and $\Delta y$, then check whether
+            $(\Delta x)^2 + (\Delta y)^2$ is a perfect square.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 7 - 2 = 5$</div>
+              <div class="step">$\Delta y = 15 - 3 = 12$</div>
+              <div class="step">$d = \sqrt{5^2 + 12^2} = \sqrt{25 + 144} = \sqrt{169} = 13$</div>
+              <p class="answer">$d = 13$</p>
+              <p class="note">The $(5, 12, 13)$ triple again — same as exercise A2.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- B10 — general formula -->
+      <div class="card" id="b10">
+        <div class="card-header" onclick="toggle('b10')">
+          <span class="ex-num">B10</span>
+          <span>Write a general formula for the distance between any two 2D points.</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Let $A = (x_1, y_1)$ and $B = (x_2, y_2)$ be any two points in the plane.
+            Derive a formula for the distance $d = AB$ using the approach from this section.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong> The right triangle has legs $\Delta x = x_2 - x_1$ and
+            $\Delta y = y_2 - y_1$. Write $d$ in terms of these.
+            Then substitute back.
+          </div>
+          <details class="solution-box">
+            <summary>Show derivation</summary>
+            <div class="solution-content">
+              <div class="step">Horizontal leg: $\Delta x = x_2 - x_1$</div>
+              <div class="step">Vertical leg: $\Delta y = y_2 - y_1$</div>
+              <div class="step">Pythagorean theorem: $d^2 = (\Delta x)^2 + (\Delta y)^2$</div>
+              <p class="answer">
+                $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$$
+              </p>
+              <p class="note">
+                This is the <em>distance formula</em> in 2D. You have just derived it from
+                first principles using only the Pythagorean theorem.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div><!-- /exercise-list B -->
+  </div><!-- /section B -->
+
+
+  <!-- ═══════════════════════════════════════════
+       SECTION C — Distance in 3D
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-badge badge-c">C</span>
+      <span class="section-title">Distance between two points in 3D</span>
+    </div>
+
+    <div class="section-intro">
+      In 3D each point has three coordinates: $(x, y, z)$.
+      Can we still use the Pythagorean theorem? Yes — we just apply it <em>twice</em>.
+      The exercises below will lead you to figure out how.
+    </div>
+
+    <!-- 3D box visualization -->
+    <div class="viz-box">
+      <!--
+        Projection: svgX = 65 + px*40 + pz*18
+                    svgY = 222 - py*35 - pz*18
+        Box (Δx=3, Δy=4, Δz=3):
+          A=(0,0,0)  → (65,222)
+          (3,0,0)    → (185,222)
+          (0,4,0)    → (65, 82)
+          (0,0,3)    → (119,168)
+          (3,4,0)    → (185, 82)
+          M=(3,0,3)  → (239,168)
+          (0,4,3)    → (119, 28)
+          B=(3,4,3)  → (239, 28)
+      -->
+      <svg width="310" height="250" viewBox="0 0 310 250" font-family="Georgia,serif" font-size="12">
+
+        <!-- Hidden box edges (dashed gray) -->
+        <g stroke="#c0bfb5" stroke-width="1.2" stroke-dasharray="5,4" fill="none">
+          <!-- A→(0,0,3): (65,222)→(119,168) -->
+          <line x1="65" y1="222" x2="119" y2="168"/>
+          <!-- (0,0,3)→M(3,0,3): (119,168)→(239,168) -->
+          <line x1="119" y1="168" x2="239" y2="168"/>
+          <!-- (0,0,3)→(0,4,3): (119,168)→(119,28) -->
+          <line x1="119" y1="168" x2="119" y2="28"/>
+        </g>
+
+        <!-- Visible box edges (solid gray) -->
+        <g stroke="#bdbdb0" stroke-width="1.5" fill="none">
+          <!-- Front face (z=0) -->
+          <line x1="65" y1="222" x2="185" y2="222"/>
+          <line x1="65" y1="222" x2="65" y2="82"/>
+          <line x1="185" y1="222" x2="185" y2="82"/>
+          <line x1="65" y1="82" x2="185" y2="82"/>
+          <!-- Right face (x=3) -->
+          <line x1="185" y1="222" x2="239" y2="168"/>
+          <line x1="185" y1="82" x2="239" y2="28"/>
+          <line x1="239" y1="168" x2="239" y2="28"/>
+          <!-- Top face (y=4) -->
+          <line x1="65" y1="82" x2="119" y2="28"/>
+          <line x1="185" y1="82" x2="239" y2="28"/>
+          <line x1="119" y1="28" x2="239" y2="28"/>
+        </g>
+
+        <!-- Floor diagonal A→M (green dashed) -->
+        <line x1="65" y1="222" x2="239" y2="168"
+              stroke="#27ae60" stroke-width="2" stroke-dasharray="7,4"/>
+
+        <!-- Vertical M→B (orange) -->
+        <line x1="239" y1="168" x2="239" y2="28"
+              stroke="#e67e22" stroke-width="2.5"/>
+
+        <!-- Space diagonal A→B (blue) -->
+        <line x1="65" y1="222" x2="239" y2="28"
+              stroke="#2563eb" stroke-width="2.5"/>
+
+        <!-- Right angle mark at M=(239,168) between floor diagonal and vertical -->
+        <polyline points="228,163 233,152 244,157"
+                  fill="none" stroke="#888" stroke-width="1.2"/>
+
+        <!-- Dimension labels on box edges -->
+        <!-- Δx along A→(3,0,0): midpoint=(125,222) -->
+        <text x="125" y="237" text-anchor="middle" fill="#888" font-size="11">Δx</text>
+        <!-- Δy along A→(0,4,0): midpoint=(65,152) -->
+        <text x="50" y="155" text-anchor="end" fill="#888" font-size="11">Δy</text>
+        <!-- Δz along (3,0,0)→M dashed (already drawn) label -->
+        <text x="215" y="205" text-anchor="middle" fill="#888" font-size="11">Δz</text>
+
+        <!-- d₁ label on floor diagonal -->
+        <text x="145" y="205" text-anchor="middle" fill="#27ae60" font-size="12" font-style="italic">d₁</text>
+
+        <!-- d label on space diagonal -->
+        <text x="135" y="115" text-anchor="middle" fill="#2563eb" font-size="12" font-style="italic">d</text>
+
+        <!-- Δy label on vertical MB -->
+        <text x="250" y="102" text-anchor="start" fill="#e67e22" font-size="12">Δy</text>
+
+        <!-- Points -->
+        <circle cx="65" cy="222" r="5" fill="#1a1a2e"/>
+        <circle cx="239" cy="28" r="5" fill="#1a1a2e"/>
+        <circle cx="239" cy="168" r="4" fill="#e67e22"/>
+
+        <!-- Point labels -->
+        <text x="45" y="220" fill="#1a1a2e" font-size="13" font-weight="bold">A</text>
+        <text x="244" y="25" fill="#1a1a2e" font-size="13" font-weight="bold">B</text>
+        <text x="244" y="171" fill="#e67e22" font-size="12" font-weight="bold">M</text>
+      </svg>
+    </div>
+
+    <div class="insight">
+      <div class="insight-title">The two-step trick for 3D</div>
+      Given $A = (x_1, y_1, z_1)$ and $B = (x_2, y_2, z_2)$:
+      <ol style="margin: 0.5rem 0 0 1.2rem; line-height: 2">
+        <li>
+          Drop $B$ straight down onto the <em>floor</em> ($y = y_1$) to get
+          point $M = (x_2, y_1, z_2)$.
+          The floor distance is
+          $d_1 = \sqrt{\Delta x^2 + \Delta z^2}$.
+        </li>
+        <li>
+          Now $AM$ and $MB$ are perpendicular (floor vs. vertical),
+          so apply Pythagoras again:
+          $d = \sqrt{d_1^2 + \Delta y^2} = \sqrt{\Delta x^2 + \Delta y^2 + \Delta z^2}$.
+        </li>
+      </ol>
+      <p style="margin-top:0.5rem">
+        You don't have to use the floor — any pair of axes works first.
+        The result is always the same.
+      </p>
+    </div>
+
+    <div class="exercise-list">
+
+      <!-- C1 -->
+      <div class="card" id="c1">
+        <div class="card-header" onclick="toggle('c1')">
+          <span class="ex-num">C1</span>
+          <span>Distance from $(0, 0, 0)$ to $(5, 0, 0)$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0, 0)$ and $B = (5, 0, 0)$.
+            $B$ lies on the $x$-axis.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $\Delta y = 0$ and $\Delta z = 0$.
+            What does $\sqrt{\Delta x^2 + 0 + 0}$ simplify to?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 5$, $\Delta y = 0$, $\Delta z = 0$</div>
+              <div class="step">$d = \sqrt{5^2 + 0 + 0} = 5$</div>
+              <p class="answer">$d = 5$</p>
+              <p class="note">Along a single axis, 3D distance reduces to the ordinary 1D distance.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C2 -->
+      <div class="card" id="c2">
+        <div class="card-header" onclick="toggle('c2')">
+          <span class="ex-num">C2</span>
+          <span>Distance from $(0, 0, 0)$ to $(3, 4, 0)$</span>
+          <span class="difficulty d1">Starter</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0, 0)$ and $B = (3, 4, 0)$.
+            Both points lie in the $z = 0$ plane.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $\Delta z = 0$. This is exactly the same as the 2D problem
+            with $x$ and $y$. What does the formula give?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 3$, $\Delta y = 4$, $\Delta z = 0$</div>
+              <div class="step">$d = \sqrt{3^2 + 4^2 + 0} = \sqrt{25} = 5$</div>
+              <p class="answer">$d = 5$</p>
+              <p class="note">
+                Setting one coordinate to zero recovers the 2D case.
+                3D distance is a genuine extension of 2D distance.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C3 -->
+      <div class="card" id="c3">
+        <div class="card-header" onclick="toggle('c3')">
+          <span class="ex-num">C3</span>
+          <span>Distance from $(0, 0, 0)$ to $(0, 3, 4)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0, 0)$ and $B = (0, 3, 4)$.
+            Both points lie in the $x = 0$ plane.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $\Delta x = 0$. Only $y$ and $z$ change — it's still a 2D problem.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 0$, $\Delta y = 3$, $\Delta z = 4$</div>
+              <div class="step">$d = \sqrt{0 + 3^2 + 4^2} = \sqrt{9 + 16} = 5$</div>
+              <p class="answer">$d = 5$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C4 -->
+      <div class="card" id="c4">
+        <div class="card-header" onclick="toggle('c4')">
+          <span class="ex-num">C4</span>
+          <span>Distance from $(0, 0, 0)$ to $(1, 1, 1)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Find the distance between opposite corners of a unit cube:
+            from $A = (0, 0, 0)$ to $B = (1, 1, 1)$.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong>
+            Step 1 — find the floor diagonal from $(0,0,0)$ to $(1,0,1)$:
+            $d_1 = \sqrt{1^2 + 1^2} = \sqrt{2}$.
+            Step 2 — use $d_1$ as one leg and $\Delta y = 1$ as the other.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step"><strong>Step 1 (floor diagonal):</strong>
+                $d_1 = \sqrt{1^2 + 1^2} = \sqrt{2}$</div>
+              <div class="step"><strong>Step 2 (space diagonal):</strong>
+                $d = \sqrt{d_1^2 + 1^2} = \sqrt{2 + 1} = \sqrt{3}$</div>
+              <p class="answer">$d = \sqrt{3} \approx 1.732$</p>
+              <p class="note">
+                The main diagonal of a unit cube has length $\sqrt{3}$.
+                You can also see this directly: $\sqrt{1^2+1^2+1^2} = \sqrt{3}$.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C5 -->
+      <div class="card" id="c5">
+        <div class="card-header" onclick="toggle('c5')">
+          <span class="ex-num">C5</span>
+          <span>Distance from $(1, 2, 3)$ to $(4, 6, 3)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (1, 2, 3)$ and $B = (4, 6, 3)$.
+            Notice that both $z$-coordinates are equal.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> $\Delta z = 3 - 3 = 0$.
+            The problem collapses to a 2D distance — compute $\Delta x$ and $\Delta y$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 3$, $\Delta y = 4$, $\Delta z = 0$</div>
+              <div class="step">$d = \sqrt{9 + 16 + 0} = 5$</div>
+              <p class="answer">$d = 5$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C6 -->
+      <div class="card" id="c6">
+        <div class="card-header" onclick="toggle('c6')">
+          <span class="ex-num">C6</span>
+          <span>Distance from $(0, 0, 0)$ to $(2, 2, 1)$</span>
+          <span class="difficulty d2">Easy</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0, 0)$ and $B = (2, 2, 1)$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Compute $2^2 + 2^2 + 1^2$. Does it equal a perfect square?
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$d^2 = 2^2 + 2^2 + 1^2 = 4 + 4 + 1 = 9$</div>
+              <div class="step">$d = \sqrt{9} = 3$</div>
+              <p class="answer">$d = 3$</p>
+              <p class="note">$(2,2,1,3)$ is a 3D Pythagorean quadruple: $2^2+2^2+1^2=3^2$.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C7 — guided two-step, 3D triple -->
+      <div class="card" id="c7">
+        <div class="card-header" onclick="toggle('c7')">
+          <span class="ex-num">C7</span>
+          <span>Distance from $(0, 0, 0)$ to $(3, 12, 4)$ — guided two steps</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Find the distance between $A = (0, 0, 0)$ and $B = (3, 12, 4)$.
+            Try the two-step approach shown in the diagram at the top of this section.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong>
+            <strong>Step 1:</strong> Ignore $y$ for now. Drop $B$ onto the floor ($y=0$)
+            to get $M = (3, 0, 4)$. Compute $d_1 = AM$ using only $\Delta x = 3$
+            and $\Delta z = 4$ — does that look familiar?<br>
+            <strong>Step 2:</strong> Now $M$ and $B$ are directly above each other
+            ($\Delta y = 12$). Find $d = \sqrt{d_1^2 + 12^2}$.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">
+                <strong>Step 1 — floor distance:</strong><br>
+                $M = (3, 0, 4)$<br>
+                $d_1 = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5$
+              </div>
+              <div class="step">
+                <strong>Step 2 — space diagonal:</strong><br>
+                $\Delta y = 12$<br>
+                $d = \sqrt{5^2 + 12^2} = \sqrt{25 + 144} = \sqrt{169} = 13$
+              </div>
+              <p class="answer">$d = 13$</p>
+              <p class="note">
+                The $3{-}4{-}5$ triple on the floor, then the $5{-}12{-}13$ triple going up.
+                Two Pythagorean triples nested inside each other!
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C8 -->
+      <div class="card" id="c8">
+        <div class="card-header" onclick="toggle('c8')">
+          <span class="ex-num">C8</span>
+          <span>Distance from $(0, 0, 0)$ to $(2, 6, 9)$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (0, 0, 0)$ and $B = (2, 6, 9)$.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Compute $2^2 + 6^2 + 9^2$.
+            Check whether the sum is a perfect square.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$d^2 = 4 + 36 + 81 = 121$</div>
+              <div class="step">$d = \sqrt{121} = 11$</div>
+              <p class="answer">$d = 11$</p>
+              <p class="note">Another 3D quadruple: $2^2 + 6^2 + 9^2 = 11^2$.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C9 -->
+      <div class="card" id="c9">
+        <div class="card-header" onclick="toggle('c9')">
+          <span class="ex-num">C9</span>
+          <span>Distance from $(1, 2, 3)$ to $(4, 6, 7)$</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">Find the distance between $A = (1, 2, 3)$ and $B = (4, 6, 7)$.
+            All three coordinates differ.</p>
+          <div class="hint-box">
+            <strong>Hint:</strong> Compute $\Delta x$, $\Delta y$, $\Delta z$ first,
+            then apply the formula you derived in C10.
+          </div>
+          <details class="solution-box">
+            <summary>Show solution</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = 3$, $\Delta y = 4$, $\Delta z = 4$</div>
+              <div class="step">$d^2 = 9 + 16 + 16 = 41$</div>
+              <p class="answer">$d = \sqrt{41} \approx 6.40$</p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- C10 — derive general formula -->
+      <div class="card" id="c10">
+        <div class="card-header" onclick="toggle('c10')">
+          <span class="ex-num">C10</span>
+          <span>Write a general formula for 3D distance.</span>
+          <span class="difficulty d3">Medium</span>
+          <span class="toggle-icon">▼</span>
+        </div>
+        <div class="card-body">
+          <p class="problem">
+            Let $A = (x_1, y_1, z_1)$ and $B = (x_2, y_2, z_2)$ be any two points in 3D space.
+            Using the two-step approach — floor diagonal then height — derive a formula for
+            the distance $d = AB$.
+          </p>
+          <div class="hint-box">
+            <strong>Hint:</strong>
+            Step 1: floor distance $d_1 = \sqrt{(\Delta x)^2 + (\Delta z)^2}$.<br>
+            Step 2: $d = \sqrt{d_1^2 + (\Delta y)^2}$.
+            Substitute $d_1$ and simplify.
+          </div>
+          <details class="solution-box">
+            <summary>Show derivation</summary>
+            <div class="solution-content">
+              <div class="step">$\Delta x = x_2 - x_1, \quad \Delta y = y_2 - y_1, \quad \Delta z = z_2 - z_1$</div>
+              <div class="step">
+                <strong>Step 1:</strong> Floor point $M = (x_2, y_1, z_2)$.<br>
+                $d_1^2 = (\Delta x)^2 + (\Delta z)^2$
+              </div>
+              <div class="step">
+                <strong>Step 2:</strong>
+                $d^2 = d_1^2 + (\Delta y)^2 = (\Delta x)^2 + (\Delta z)^2 + (\Delta y)^2$
+              </div>
+              <p class="answer">
+                $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}$$
+              </p>
+              <p class="note">
+                The 3D distance formula is a natural extension of the 2D one:
+                add one more squared difference under the root.
+                The same idea extends to 4D, 5D, or any number of dimensions —
+                just keep adding terms.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div><!-- /exercise-list C -->
+  </div><!-- /section C -->
+
+</div><!-- /page -->
+
+<script>
+  function toggle(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
