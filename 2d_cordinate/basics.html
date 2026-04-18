@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coordinate Geometry Practice</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: #0d1117;
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 12px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: #c084fc;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.app {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+canvas {
+  border-radius: 14px;
+  cursor: crosshair;
+  box-shadow: 0 0 40px rgba(124, 58, 237, 0.2), 0 4px 20px rgba(0,0,0,0.6);
+  flex-shrink: 0;
+  display: block;
+}
+
+.panel {
+  width: 290px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.score-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.score {
+  font-size: 1rem;
+  color: #c084fc;
+  font-weight: 700;
+}
+
+.exercise-type-tag {
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+.tag-click    { background: #1c3557; color: #60a5fa; border: 1px solid #1d4ed8; }
+.tag-identify { background: #14532d; color: #4ade80; border: 1px solid #15803d; }
+.tag-done     { background: #3b1d6a; color: #c084fc; border: 1px solid #7c3aed; }
+
+.progress-bar {
+  height: 5px;
+  background: #21262d;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #7c3aed, #c084fc);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.exercise-num {
+  font-size: 0.75rem;
+  color: #8b949e;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.difficulty {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 1px 7px;
+  border-radius: 10px;
+  margin-left: 6px;
+  font-weight: 700;
+}
+.diff-easy   { background: #14532d; color: #4ade80; }
+.diff-medium { background: #7c2d12; color: #fb923c; }
+.diff-hard   { background: #450a0a; color: #f87171; }
+
+.exercise-desc {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #cdd9e5;
+  margin-bottom: 14px;
+}
+
+.target-coord {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fbbf24;
+  text-align: center;
+  padding: 14px;
+  background: #1c1507;
+  border: 1px solid #78350f;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+  font-family: monospace;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.input-group label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: #8b949e;
+  font-weight: 600;
+  flex: 1;
+}
+.input-group input {
+  width: 100%;
+  padding: 9px 10px;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  color: #f0f6fc;
+  font-size: 1.1rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: monospace;
+  font-weight: 600;
+}
+.input-group input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #7c3aed;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  letter-spacing: 0.3px;
+}
+.btn:hover:not(:disabled) { background: #6d28d9; }
+.btn:active:not(:disabled) { transform: scale(0.98); }
+.btn:disabled { background: #374151; color: #6b7280; cursor: not-allowed; }
+
+.btn-restart {
+  background: #059669;
+}
+.btn-restart:hover:not(:disabled) { background: #047857; }
+
+.feedback {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+  display: none;
+  line-height: 1.4;
+}
+.feedback.correct {
+  background: #0d2818;
+  color: #4ade80;
+  border: 1px solid #15803d;
+  display: block;
+}
+.feedback.wrong {
+  background: #1a0505;
+  color: #f87171;
+  border: 1px solid #dc2626;
+  display: block;
+}
+
+.hint {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-top: 14px;
+  line-height: 1.5;
+  padding: 8px 10px;
+  background: #161b22;
+  border-radius: 6px;
+  border-left: 2px solid #374151;
+}
+
+.all-done {
+  text-align: center;
+  padding: 10px 0;
+}
+.all-done .trophy { font-size: 3rem; margin-bottom: 8px; }
+.all-done .final-score {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #c084fc;
+  margin: 8px 0;
+  font-family: monospace;
+}
+.all-done .grade {
+  font-size: 0.9rem;
+  color: #8b949e;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.all-done .grade strong {
+  color: #cdd9e5;
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.coord-display-label {
+  font-size: 0.72rem;
+  color: #6b7280;
+  text-align: center;
+  margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<h1>Coordinate Geometry Practice</h1>
+
+<div class="app">
+  <canvas id="canvas" width="560" height="560"></canvas>
+
+  <div class="panel">
+    <div class="score-bar">
+      <div class="score" id="scoreDisplay">Score: 0 / 0</div>
+      <span class="exercise-type-tag tag-click" id="typeTag">CLICK</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div id="exercisePanel"></div>
+    <div class="coord-display-label" id="coordLabel">Hover over the grid to see coordinates</div>
+  </div>
+</div>
+
+<script>
+// ─── Canvas & Grid Config ────────────────────────────────────────────────────
+const canvas = document.getElementById('canvas');
+const ctx    = canvas.getContext('2d');
+const W = 560, H = 560;
+const OX = 280, OY = 280;   // origin in canvas pixels
+const UNIT = 42;             // pixels per grid unit
+const GMIN = -6, GMAX = 6;
+
+// ─── Exercises ───────────────────────────────────────────────────────────────
+const exercises = [
+  // Interleaved click / identify, varied difficulty
+  { type: 'click',    x:  3, y:  4, label: 'Easy'   },
+  { type: 'identify', x:  2, y:  3, label: 'Easy'   },
+  { type: 'click',    x: -2, y:  3, label: 'Easy'   },
+  { type: 'identify', x: -1, y:  4, label: 'Easy'   },
+  { type: 'click',    x:  0, y:  5, label: 'Medium' },
+  { type: 'identify', x:  5, y: -2, label: 'Medium' },
+  { type: 'click',    x:  4, y:  0, label: 'Medium' },
+  { type: 'identify', x:  0, y:  4, label: 'Medium' },
+  { type: 'click',    x: -3, y: -2, label: 'Medium' },
+  { type: 'identify', x: -3, y: -5, label: 'Hard'   },
+  { type: 'click',    x:  5, y: -4, label: 'Medium' },
+  { type: 'identify', x:  4, y:  0, label: 'Medium' },
+  { type: 'click',    x: -5, y:  5, label: 'Hard'   },
+  { type: 'identify', x: -5, y:  1, label: 'Hard'   },
+  { type: 'click',    x:  0, y:  0, label: 'Easy'   },
+  { type: 'identify', x:  0, y:  0, label: 'Easy'   },
+  { type: 'click',    x: -4, y: -4, label: 'Hard'   },
+  { type: 'identify', x:  3, y: -3, label: 'Medium' },
+  { type: 'click',    x:  1, y: -1, label: 'Easy'   },
+  { type: 'identify', x: -2, y: -4, label: 'Hard'   },
+];
+const TOTAL = exercises.length;
+
+// ─── State ───────────────────────────────────────────────────────────────────
+let mouseCanvasX = -999, mouseCanvasY = -999;
+let score = { correct: 0, total: 0 };
+let currentIdx = 0;
+let awaitingNext = false;
+let clickEffect = null;   // { cx, cy, correct, alpha }
+let animId = null;
+
+// ─── Coordinate helpers ──────────────────────────────────────────────────────
+function toCanvas(gx, gy) {
+  return { cx: OX + gx * UNIT, cy: OY - gy * UNIT };
+}
+function toGrid(px, py) {
+  return { gx: (px - OX) / UNIT, gy: -(py - OY) / UNIT };
+}
+function snapGrid(gx, gy) {
+  return { sx: Math.round(gx), sy: Math.round(gy) };
+}
+function inBounds(v) { return v >= GMIN && v <= GMAX; }
+
+// ─── Draw: background + grid ─────────────────────────────────────────────────
+function drawBase() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  ctx.fillStyle = '#0a0f1a';
+  ctx.fillRect(0, 0, W, H);
+
+  // Subtle quadrant tints
+  const quadrants = [
+    { x: OX, y: 0,   w: W - OX, h: OY,   color: 'rgba(59,130,246,0.03)' },
+    { x: 0,  y: 0,   w: OX,     h: OY,   color: 'rgba(168,85,247,0.03)' },
+    { x: 0,  y: OY,  w: OX,     h: H - OY, color: 'rgba(20,184,166,0.03)' },
+    { x: OX, y: OY,  w: W - OX, h: H - OY, color: 'rgba(249,115,22,0.03)' },
+  ];
+  quadrants.forEach(q => {
+    ctx.fillStyle = q.color;
+    ctx.fillRect(q.x, q.y, q.w, q.h);
+  });
+
+  // Dotted grid lines
+  ctx.save();
+  ctx.strokeStyle = '#1e2d3d';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([2, 7]);
+  for (let g = GMIN; g <= GMAX; g++) {
+    const { cx } = toCanvas(g, 0);
+    const { cy } = toCanvas(0, g);
+    ctx.beginPath(); ctx.moveTo(cx, 10); ctx.lineTo(cx, H - 10); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(10, cy); ctx.lineTo(W - 10, cy); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  // Axes
+  ctx.strokeStyle = '#3b5998';
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  // X
+  ctx.beginPath(); ctx.moveTo(12, OY); ctx.lineTo(W - 14, OY); ctx.stroke();
+  // Y
+  ctx.beginPath(); ctx.moveTo(OX, H - 12); ctx.lineTo(OX, 14); ctx.stroke();
+
+  // Arrowheads
+  ctx.fillStyle = '#3b5998';
+  // Right
+  ctx.beginPath();
+  ctx.moveTo(W - 12, OY);
+  ctx.lineTo(W - 22, OY - 5); ctx.lineTo(W - 22, OY + 5);
+  ctx.closePath(); ctx.fill();
+  // Up
+  ctx.beginPath();
+  ctx.moveTo(OX, 12);
+  ctx.lineTo(OX - 5, 22); ctx.lineTo(OX + 5, 22);
+  ctx.closePath(); ctx.fill();
+
+  // Axis labels
+  ctx.fillStyle = '#60a5fa';
+  ctx.font = 'bold 13px system-ui';
+  ctx.textAlign = 'left';   ctx.textBaseline = 'middle';
+  ctx.fillText('x', W - 10, OY - 14);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillText('y', OX + 11, 12);
+
+  // Tick marks & numbers
+  ctx.font = '11px system-ui';
+  for (let g = GMIN; g <= GMAX; g++) {
+    if (g === 0) continue;
+    const { cx } = toCanvas(g, 0);
+    const { cy } = toCanvas(0, g);
+
+    ctx.strokeStyle = '#2d3e57';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx, OY - 4); ctx.lineTo(cx, OY + 4); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(OX - 4, cy); ctx.lineTo(OX + 4, cy); ctx.stroke();
+
+    ctx.fillStyle = '#4b6882';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText(g, cx, OY + 7);
+    ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+    ctx.fillText(g, OX - 7, cy);
+  }
+
+  // Origin
+  ctx.fillStyle = '#4b6882';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+  ctx.font = '11px system-ui';
+  ctx.fillText('O', OX - 5, OY + 5);
+}
+
+// ─── Draw: target point for click exercises ───────────────────────────────────
+function drawClickTarget(ex) {
+  const { cx, cy } = toCanvas(ex.x, ex.y);
+  const t = Date.now() / 1000;
+  const pulse = 0.5 + 0.5 * Math.sin(t * 2.8);
+
+  // Outer glow
+  const grad = ctx.createRadialGradient(cx, cy, 4, cx, cy, 20 + pulse * 6);
+  grad.addColorStop(0, `rgba(251,191,36,${0.35 + pulse * 0.15})`);
+  grad.addColorStop(1, 'rgba(251,191,36,0)');
+  ctx.beginPath(); ctx.arc(cx, cy, 22 + pulse * 6, 0, Math.PI * 2);
+  ctx.fillStyle = grad; ctx.fill();
+
+  // Ring
+  ctx.beginPath(); ctx.arc(cx, cy, 11 + pulse * 2, 0, Math.PI * 2);
+  ctx.strokeStyle = `rgba(251,191,36,${0.6 + pulse * 0.4})`;
+  ctx.lineWidth = 2; ctx.stroke();
+
+  // Core
+  ctx.beginPath(); ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+  ctx.fillStyle = '#fbbf24'; ctx.fill();
+
+  // Crosshair
+  ctx.strokeStyle = 'rgba(251,191,36,0.25)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]);
+  ctx.beginPath(); ctx.moveTo(cx, OY); ctx.lineTo(cx, cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(OX, cy); ctx.lineTo(cx, cy); ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+// ─── Draw: point to identify ──────────────────────────────────────────────────
+function drawIdentifyPoint(ex) {
+  const { cx, cy } = toCanvas(ex.x, ex.y);
+
+  // Dotted projection lines
+  ctx.strokeStyle = 'rgba(74,222,128,0.3)';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([5, 5]);
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx, OY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(OX, cy); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Foot marks on axes
+  ctx.strokeStyle = 'rgba(74,222,128,0.6)';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(cx - 5, OY); ctx.lineTo(cx + 5, OY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(OX, cy - 5); ctx.lineTo(OX, cy + 5); ctx.stroke();
+
+  // Point glow
+  const grad = ctx.createRadialGradient(cx, cy, 2, cx, cy, 16);
+  grad.addColorStop(0, 'rgba(74,222,128,0.5)');
+  grad.addColorStop(1, 'rgba(74,222,128,0)');
+  ctx.beginPath(); ctx.arc(cx, cy, 16, 0, Math.PI * 2);
+  ctx.fillStyle = grad; ctx.fill();
+
+  // Point
+  ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2);
+  ctx.fillStyle = '#4ade80'; ctx.fill();
+  ctx.strokeStyle = '#16a34a'; ctx.lineWidth = 1.5; ctx.stroke();
+}
+
+// ─── Draw: click effect (correct / wrong) ────────────────────────────────────
+function drawClickEffect() {
+  if (!clickEffect) return;
+  const { cx, cy, correct } = clickEffect;
+  const color = correct ? '74,222,128' : '248,113,113';
+
+  ctx.beginPath(); ctx.arc(cx, cy, 10, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(${color},${clickEffect.alpha})`;
+  ctx.fill();
+  ctx.strokeStyle = `rgba(${color},${clickEffect.alpha * 0.8})`;
+  ctx.lineWidth = 2; ctx.stroke();
+
+  clickEffect.alpha -= 0.025;
+  if (clickEffect.alpha <= 0) clickEffect = null;
+}
+
+// ─── Draw: mouse hover ────────────────────────────────────────────────────────
+function drawHover() {
+  if (mouseCanvasX < 0 || mouseCanvasX > W) return;
+  const { gx, gy } = toGrid(mouseCanvasX, mouseCanvasY);
+  const { sx, sy } = snapGrid(gx, gy);
+  if (!inBounds(sx) || !inBounds(sy)) return;
+
+  const { cx, cy } = toCanvas(sx, sy);
+
+  // Nearest grid point highlight
+  ctx.beginPath(); ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(167,139,250,0.12)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(167,139,250,0.35)'; ctx.lineWidth = 1; ctx.stroke();
+
+  // Tooltip
+  const label = `(${sx}, ${sy})`;
+  ctx.font = 'bold 12px monospace';
+  const tw = ctx.measureText(label).width;
+  let tx = mouseCanvasX + 14;
+  let ty = mouseCanvasY - 30;
+  if (tx + tw + 14 > W) tx = mouseCanvasX - tw - 20;
+  if (ty < 6) ty = mouseCanvasY + 14;
+
+  ctx.fillStyle = 'rgba(10,15,26,0.88)';
+  ctx.beginPath();
+  const pad = 7, r = 5;
+  const bx = tx - pad, by = ty - pad, bw = tw + pad * 2, bh = 22;
+  ctx.moveTo(bx + r, by);
+  ctx.lineTo(bx + bw - r, by); ctx.quadraticCurveTo(bx + bw, by, bx + bw, by + r);
+  ctx.lineTo(bx + bw, by + bh - r); ctx.quadraticCurveTo(bx + bw, by + bh, bx + bw - r, by + bh);
+  ctx.lineTo(bx + r, by + bh); ctx.quadraticCurveTo(bx, by + bh, bx, by + bh - r);
+  ctx.lineTo(bx, by + r); ctx.quadraticCurveTo(bx, by, bx + r, by);
+  ctx.closePath(); ctx.fill();
+
+  ctx.strokeStyle = 'rgba(167,139,250,0.3)'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.fillStyle = '#c084fc';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText(label, tx, ty);
+
+  // Live coord label in panel
+  document.getElementById('coordLabel').textContent = `Cursor: (${sx}, ${sy})`;
+}
+
+// ─── Render loop ──────────────────────────────────────────────────────────────
+function render() {
+  drawBase();
+  const ex = exercises[currentIdx];
+  if (ex) {
+    if (ex.type === 'identify') drawIdentifyPoint(ex);
+  }
+  drawClickEffect();
+  drawHover();
+  animId = requestAnimationFrame(render);
+}
+
+// ─── Mouse events ─────────────────────────────────────────────────────────────
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  mouseCanvasX = (e.clientX - r.left) * (W / r.width);
+  mouseCanvasY = (e.clientY - r.top)  * (H / r.height);
+});
+canvas.addEventListener('mouseleave', () => {
+  mouseCanvasX = -999;
+  document.getElementById('coordLabel').textContent = 'Hover over the grid to see coordinates';
+});
+
+canvas.addEventListener('click', e => {
+  if (awaitingNext) return;
+  const ex = exercises[currentIdx];
+  if (!ex || ex.type !== 'click') return;
+
+  const r  = canvas.getBoundingClientRect();
+  const px = (e.clientX - r.left) * (W / r.width);
+  const py = (e.clientY - r.top)  * (H / r.height);
+  const { gx, gy } = toGrid(px, py);
+  const { sx, sy } = snapGrid(gx, gy);
+
+  const correct = (sx === ex.x && sy === ex.y);
+  score.total++;
+  if (correct) score.correct++;
+
+  const { cx, cy } = toCanvas(sx, sy);
+  clickEffect = { cx, cy, correct, alpha: 1.0 };
+
+  updateScore();
+  showFeedback(correct, ex);
+  awaitingNext = true;
+
+  setTimeout(() => {
+    awaitingNext = false;
+    advance();
+  }, 1600);
+});
+
+// ─── UI helpers ───────────────────────────────────────────────────────────────
+function diffTag(label) {
+  const cls = label === 'Easy' ? 'diff-easy' : label === 'Medium' ? 'diff-medium' : 'diff-hard';
+  return `<span class="difficulty ${cls}">${label}</span>`;
+}
+
+function updateScore() {
+  document.getElementById('scoreDisplay').textContent =
+    `Score: ${score.correct} / ${score.total}`;
+  document.getElementById('progressFill').style.width =
+    (currentIdx / TOTAL * 100) + '%';
+}
+
+function showFeedback(correct, ex) {
+  const fb = document.getElementById('feedback');
+  if (!fb) return;
+  fb.className = 'feedback ' + (correct ? 'correct' : 'wrong');
+  fb.textContent = correct
+    ? '✓ Correct! Well done!'
+    : `✗ Not quite — the answer was (${ex.x}, ${ex.y})`;
+}
+
+function loadExercise() {
+  if (currentIdx >= TOTAL) { showAllDone(); return; }
+  const ex  = exercises[currentIdx];
+  const tag = document.getElementById('typeTag');
+  updateScore();
+
+  if (ex.type === 'click') {
+    tag.textContent = 'CLICK';
+    tag.className   = 'exercise-type-tag tag-click';
+
+    document.getElementById('exercisePanel').innerHTML = `
+      <div class="exercise-num">Exercise ${currentIdx + 1} of ${TOTAL} ${diffTag(ex.label)}</div>
+      <div class="exercise-desc">Click on the point at these coordinates:</div>
+      <div class="target-coord">(${ex.x}, ${ex.y})</div>
+      <div id="feedback" class="feedback"></div>
+      <div class="hint">Hover to see coordinates highlighted. Click the glowing yellow point.</div>
+    `;
+  } else {
+    tag.textContent = 'IDENTIFY';
+    tag.className   = 'exercise-type-tag tag-identify';
+
+    document.getElementById('exercisePanel').innerHTML = `
+      <div class="exercise-num">Exercise ${currentIdx + 1} of ${TOTAL} ${diffTag(ex.label)}</div>
+      <div class="exercise-desc">
+        What are the coordinates of the <span style="color:#4ade80;font-weight:700">green point</span>?
+      </div>
+      <div class="input-group">
+        <label>x =
+          <input type="number" id="xInput" placeholder="0" autocomplete="off">
+        </label>
+        <label>y =
+          <input type="number" id="yInput" placeholder="0" autocomplete="off">
+        </label>
+      </div>
+      <button class="btn" id="submitBtn">Check Answer</button>
+      <div id="feedback" class="feedback"></div>
+      <div class="hint">Follow the dotted lines from the point to each axis to read off x and y.</div>
+    `;
+
+    document.getElementById('submitBtn').addEventListener('click', checkIdentify);
+    document.getElementById('xInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('yInput')?.focus();
+    });
+    document.getElementById('yInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter') checkIdentify();
+    });
+    setTimeout(() => document.getElementById('xInput')?.focus(), 60);
+  }
+}
+
+function checkIdentify() {
+  if (awaitingNext) return;
+  const ex = exercises[currentIdx];
+  const xv = parseInt(document.getElementById('xInput').value, 10);
+  const yv = parseInt(document.getElementById('yInput').value, 10);
+
+  if (isNaN(xv) || isNaN(yv)) {
+    const fb = document.getElementById('feedback');
+    fb.className   = 'feedback wrong';
+    fb.textContent = 'Please enter both x and y values.';
+    return;
+  }
+
+  const correct = (xv === ex.x && yv === ex.y);
+  score.total++;
+  if (correct) score.correct++;
+
+  updateScore();
+  showFeedback(correct, ex);
+  document.getElementById('submitBtn').disabled = true;
+  awaitingNext = true;
+
+  setTimeout(() => {
+    awaitingNext = false;
+    advance();
+  }, 1800);
+}
+
+function advance() {
+  currentIdx++;
+  loadExercise();
+}
+
+function showAllDone() {
+  const tag = document.getElementById('typeTag');
+  tag.textContent = 'DONE';
+  tag.className   = 'exercise-type-tag tag-done';
+  document.getElementById('progressFill').style.width = '100%';
+
+  const pct = Math.round(score.correct / score.total * 100);
+  let trophy, msg;
+  if (pct >= 95) { trophy = '🏆'; msg = 'Outstanding! Perfect score!'; }
+  else if (pct >= 80) { trophy = '🌟'; msg = 'Excellent work!'; }
+  else if (pct >= 65) { trophy = '👍'; msg = 'Good job — keep it up!'; }
+  else if (pct >= 50) { trophy = '📚'; msg = 'Keep practising!'; }
+  else               { trophy = '💪'; msg = 'Review the basics and try again!'; }
+
+  document.getElementById('exercisePanel').innerHTML = `
+    <div class="all-done">
+      <div class="trophy">${trophy}</div>
+      <div class="final-score">${score.correct} / ${score.total}</div>
+      <div class="grade">
+        <strong>${pct}% — ${msg}</strong>
+        Click and Identify exercises completed.
+      </div>
+      <button class="btn btn-restart" onclick="restartAll()">Play Again</button>
+    </div>
+  `;
+}
+
+function restartAll() {
+  score      = { correct: 0, total: 0 };
+  currentIdx = 0;
+  awaitingNext = false;
+  clickEffect  = null;
+  loadExercise();
+}
+
+// ─── Keyboard shortcut: Enter triggers submit ─────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.activeElement?.tagName !== 'INPUT') {
+    const btn = document.getElementById('submitBtn');
+    if (btn && !btn.disabled) checkIdentify();
+  }
+});
+
+// ─── Start ────────────────────────────────────────────────────────────────────
+loadExercise();
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+Create an canvas app to help the learner practice the coordinate geometry. 
+
+* Draw a neat 2D Coordinate axises - showing dotted canvas
+* As the learner moves the mouse cursor should display the current cordinate
+* Ask the learner to click at a particular cordinate say (3,4) and if the learner correctly clicks at right place, reward them. Prepare at least 10 such exercises of various dificulty level (negatives, zero).
+* Ask the user to enter the coordinate of a point. Reward them if they do it correctly. Prepare at least 10 such exercises of various dificulty level (negatives, zero).
+
+Put it in folder 2d_cordinate/basics.html
